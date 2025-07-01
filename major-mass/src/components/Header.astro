@@ -1,35 +1,37 @@
 ---
-
+import Layout from "../layouts/Layout.astro"
 ---
 <style lang="scss">
-html{
+header{
     font-size: 10px;
 }
 </style>
-<header>
-    <h3 class="header">メニュー</h3>
-        <nav class="header__nav nav" id="js-nav">
-            <ul class="nav__items nav-items">
-                <div class="headeritem">
-                    <img src="img/home.png" alt="">
-                    <li class="nav_item">ホーム</a></li>
-                </div>
-                <div class="headeritem">
-                    <img src="img/book.png" alt="">
-                    <li class="nav_item"><a href="">BGM大辞典</a></li>
-                </div>
-                <div class="headeritem">
-                    <img src="img/friend.png" alt="">
-                    <li class="nav_item"><a href="">フレンドリスト</a></li>
-                </div>
-                <div class="headeritem">
-                    <img src="img/people.png" alt="">
-                    <li class="nav_item"><a href="">プロフィール</a></li>
-                </div>
-                <div class="headeritem">
-                    <img src="img/calendar.png" alt="">
-                    <li class="nav_item"><a href="">カレンダー</a></li>
-                </div>
-            </ul>
-        </nav>
-</header>
+<Layout> 
+    <header>
+        <h3 class="header">メニュー</h3>
+            <nav class="header__nav nav" id="js-nav">
+                <ul class="nav__items nav-items">
+                    <div class="headeritem">
+                        <img src="img/home.png" alt="">
+                        <li class="nav_item">ホーム</a></li>
+                    </div>
+                    <div class="headeritem">
+                        <img src="img/book.png" alt="">
+                        <li class="nav_item"><a href="">BGM大辞典</a></li>
+                    </div>
+                    <div class="headeritem">
+                        <img src="img/friend.png" alt="">
+                        <li class="nav_item"><a href="">フレンドリスト</a></li>
+                    </div>
+                    <div class="headeritem">
+                        <img src="img/people.png" alt="">
+                        <li class="nav_item"><a href="">プロフィール</a></li>
+                    </div>
+                    <div class="headeritem">
+                        <img src="img/calendar.png" alt="">
+                        <li class="nav_item"><a href="">カレンダー</a></li>
+                    </div>
+                </ul>
+            </nav>
+    </header>
+</Layout>
