@@ -1,37 +1,111 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
+import { Image } from  "astro:assets";
+import Home from "../assets/home.png";
+import BGM from "../assets/book.png";
+import Friend from "../assets/friend.png";
+import Pro from "../assets/people.png";
+import Calendar from "../assets/calendar.png";
+
+
 ---
 <style lang="scss">
-header{
-    font-size: 10px;
+.menu-wrapper {
+    position: fixed;
+    top: 0;
+    right: -80%;
+    width: 80%;
+    height: 100%;
+    background-color: #f5c98b;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.open{
+        right: 0;
+    }
+}
+
+.menu{
+        width: 80%;
+        background-color: #eda65b;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    h3{
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #fff;
+        color: #fff;
+    }
+    ul{
+        list-style: none;
+        padding: 0;
+    }
+    li{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    margin: 15px 0;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 8px;
+        img{
+            width: 24px;
+            margin-right: 12px;
+        }
+    }
+}
+/* ハンバーガーボタン */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    cursor: pointer;
+    span{
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 6px 0;
+        transition: all 0.3s ease;
+    }
 }
 </style>
-<Layout> 
-    <header>
-        <h3 class="header">メニュー</h3>
-            <nav class="header__nav nav" id="js-nav">
-                <ul class="nav__items nav-items">
-                    <div class="headeritem">
-                        <img src="img/home.png" alt="">
-                        <li class="nav_item">ホーム</a></li>
-                    </div>
-                    <div class="headeritem">
-                        <img src="img/book.png" alt="">
-                        <li class="nav_item"><a href="">BGM大辞典</a></li>
-                    </div>
-                    <div class="headeritem">
-                        <img src="img/friend.png" alt="">
-                        <li class="nav_item"><a href="">フレンドリスト</a></li>
-                    </div>
-                    <div class="headeritem">
-                        <img src="img/people.png" alt="">
-                        <li class="nav_item"><a href="">プロフィール</a></li>
-                    </div>
-                    <div class="headeritem">
-                        <img src="img/calendar.png" alt="">
-                        <li class="nav_item"><a href="">カレンダー</a></li>
-                    </div>
-                </ul>
-            </nav>
-    </header>
+
+<Layout>
+<!-- ハンバーガーボタン -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+<!-- メニュー -->
+<div class="menu-wrapper" id="menu">
+    <div class="menu">
+        <h3>メニュー</h3>
+        <ul>
+            <li><Image src={Home} alt="ホーム" />ホーム</li>
+            <li><Image src={BGM} alt="BGM大辞典" /> BGM大辞典</li>
+            <li><Image src={Friend} alt="フレンドリスト" /> フレンドリスト</li>
+            <li><Image src={Pro} alt="プロフィール" /> プロフィール</li>
+            <li><Image src={Calendar} alt="カレンダー" /> カレンダー</li>
+        </ul>
+    </div>
+</div>
 </Layout>
+<script is:inline>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+
+    hamburger.addEventListener('click', () => {
+        menu.classList.toggle('open');
+    });
+</script>
