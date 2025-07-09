@@ -1,9 +1,94 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
 
-<Header />
-<p>こんにちは
-</p>
-<Footer />
+<style lang="scss">
+body {
+    margin: 0;
+    background: #fcfcfc;
+    height: 100vh;
+    overflow: hidden;  // 全体スクロール禁止
+}
+
+
+/* ヘッダー */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #F19D83;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* フッター */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #F19D83;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* 中央のスクロールエリア */
+.main-container {
+    position: fixed;
+    top: 50px;          // ヘッダーの高さ
+    bottom: 70px;       // フッターの高さ
+    left: 0;
+    right: 0;
+    overflow-y: auto;   // スクロール可能
+    align-items: center;
+}
+
+
+</style>
+
+<Layout>
+  <header class="header">
+    <Header />
+  </header>
+
+  <main class="main-container">
+    <div class="content-box">
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+        <p>ここから追加していきます</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <Footer />
+  </footer>
+</Layout>
