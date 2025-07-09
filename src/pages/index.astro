@@ -6,52 +6,27 @@ import Footer from "../components/Footer.astro";
 
 <style lang="scss">
 body {
-    margin: 0;
-    background: #fcfcfc;
-    height: 100vh;
-    overflow: hidden;  // 全体スクロール禁止
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden; 
 }
-
-
-/* ヘッダー */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #F19D83;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* フッター */
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background-color: #F19D83;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
 /* 中央のスクロールエリア */
 .main-container {
-    position: fixed;
-    top: 50px;          // ヘッダーの高さ
-    bottom: 70px;       // フッターの高さ
-    left: 0;
-    right: 0;
-    overflow-y: auto;   // スクロール可能
-    align-items: center;
+  position: fixed;
+  top: 50px;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fdf6ec;
+  .content-box {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  }
 }
-
 
 </style>
 
@@ -62,29 +37,31 @@ body {
 
   <main class="main-container">
     <div class="content-box">
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
-        <p>ここから追加していきます</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
+      <p>ここに追加されていく</p>
     </div>
   </main>
 

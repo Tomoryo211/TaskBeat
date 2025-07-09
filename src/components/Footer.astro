@@ -2,14 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 ---
 <style lang="scss">
-.footer_bar{
-    position: fixed;
+.footer_bar {
+    position: fixed; /* ← 固定する */
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px; 
+    height: 70px;
     background-color: #F19D83;
+    z-index: 1000; /* 必要ならヘッダーより小さく or 同じ値に */
 }
+
 </style>
 <Layout>
 <div class="footer_bar"></div>
