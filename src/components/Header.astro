@@ -32,10 +32,10 @@ import Calendar from "../assets/calendar.png";
     }
 
     .hamburger {
-        position: fixed; /* ← 追加 */
-        top: 20px;       /* 画面上からの位置 */
-        right: 20px;     /* 画面右からの位置 */
-        z-index: 1100;   /* メニューより上に */
+        position: fixed; 
+        top: 20px;       
+        right: 20px;     
+        z-index: 1100;  
         cursor: pointer;
         display: flex;
         flex-direction: column;
@@ -45,7 +45,7 @@ import Calendar from "../assets/calendar.png";
             display: block;
             width: 30px;
             height: 3px;
-            background-color: #ffffff;
+            background-color: #fcfcfc;
             margin: 4px 0;
             transition: all 0.3s ease;
         }
@@ -133,7 +133,7 @@ import Calendar from "../assets/calendar.png";
             <div class="menu">
                 <h3>メニュー</h3>
                 <ul>
-                    <li><a href=""><Image src={Home} alt="ホーム" />ホーム</a></li>
+                    <li><a href="/"><Image src={Home} alt="ホーム" />ホーム</a></li>
                     <li><a href=""><Image src={BGM} alt="BGM大辞典" /> BGM大辞典</a></li>
                     <li><a href=""><Image src={Friend} alt="フレンドリスト" /> フレンドリスト</a></li>
                     <li><a href=""><Image src={Pro} alt="プロフィール" /> プロフィール</a></li>
