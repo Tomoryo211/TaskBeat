@@ -1,8 +1,8 @@
-/* ページ全体の背景設定（空やカラーなど） */
+
 body {
     margin: 0;
     padding: 0;
-    background: #fcfcfc url("/sky.png") no-repeat center center;
+    background: #fcfcfc;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -11,13 +11,14 @@ body {
     font-family: sans-serif;
 }
 
-/* スマホ風の中央コンテンツエリア */
 .main-container {
     text-align: center;
     width: 100%;
-    max-width: 390px; /* iPhoneなどのスマホ幅に近い */
+    height: 100vh;
+    max-width: 390px; 
     min-height: 100vh;
     background-color: #fcfcfc;
-    overflow: hidden;
+    overflow-y: auto;
     position: relative;
+    padding: 100px 0;
 }
