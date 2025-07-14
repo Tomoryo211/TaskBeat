@@ -4,10 +4,14 @@ import Footer from "../components/Footer.astro";
 import Layout from "../layouts/Layout.astro";
 import { Image } from  "astro:assets";
 import Back from "../assets/back2.png";
+import User from "../assets/User.png";
 
 import "../styles/style.scss";
 ---
 <style lang="scss">
+img{
+    border-radius: 50%;
+}
 .main-container{
     background: #fcfcfc;
     .player_back{
@@ -15,10 +19,46 @@ import "../styles/style.scss";
         height: 30%;
         background: #AE9890;
         text-align: left;
-        .back{
-            width: 100px;
-            height: 100px;
-            
+        .icon {
+            text-align: center;
+            margin-top: -20px;
+        }
+        .container {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 24px;
+        font-weight: bold;
+        #user_name{
+            margin-left: 35%;
+        }
+        }
+        #name-input {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 4px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        }
+        .player_level{
+            font-size: 16px;
+            text-align: center;
+            color: #fcfcfc;
+            margin-top: -1px;
+            .number{
+                font-size: 32px;
+            }
+        }
+    }
+    .player_data{
+        border-left: solid 10px #AE9890;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: left;
+        margin-left: 30px;
+        .toc{
+            margin-left: 10px;
         }
     }
 }
@@ -27,9 +67,17 @@ import "../styles/style.scss";
 <Header />
     <main class="main-container">
         <div class="player_back">
-            <a class="back" href="/"><Image src={Back} alt="戻る" /></a>
+            <a href="/"><Image src={Back} alt="戻る" width={35} height={35} /></a>
+            <div class="icon"><Image src={User} alt="アイコン"  width={110} height={110} /></div>
+                <div class="container">
+                    <span id="user_name">田中 明夫</span>
+                    <button id="edit-button">✏️</button>
+                    <input type="text" id="name-input" style="display: none;" />
+                </div>
+            <p class="player_level">プレイヤーレベル<span class="number">15</span></p>
+        </div>
+        <div class="player_data">
+            <p class="toc">記録</p>
         </div>
     </main>
 <Footer />
-
-
