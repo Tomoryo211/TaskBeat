@@ -2,12 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { Image } from  "astro:assets";
+import Box from "../assets/box.png";
+import Plus from "../assets/plus.png";
 
 import "../styles/style.scss";
 
 ---
 
 <style lang="scss">
+img {
+  background: #AE9890;
+  border-radius: 50px;
+  padding: 10px 10px;
+}
+.fixed{
+    .btn{
+    display: flex;
+    justify-content: space-around;
+  }
+}
 
 
 </style>
@@ -31,10 +45,14 @@ import "../styles/style.scss";
         <p>ここに追加されていく</p>
         <p>ここに追加されていく</p>
         <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
+      </div>
+      <div class="fixed">
+        <div class="btn">
+          <Image src={Box} alt="削除ボタン" />
+          <Image src={Plus} alt="追加ボタン" />
+        </div>
       </div>
     </main>
   <Footer />
-</Layout>
+</Layout> 
+
