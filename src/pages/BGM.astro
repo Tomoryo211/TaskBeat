@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/style.scss";
+
+---
+<style lang="scss">
+body{
+    background: #FBEFE0;
+}
+.main-container{
+    background: #FBEFE0;
+        .toc_title {
+        display: flex;
+        justify-content: space-around;
+        a {
+            position: relative;
+            padding-bottom: 4px;
+            text-decoration: none;
+            color: #050500;
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0;
+                height: 2px;
+                background-color: #000;
+                transition: width 0.3s ease;
+            }
+            &:hover::after {
+                width: 100%;
+            }
+        }
+    }
+    .BGM_display{
+        text-align: center;
+        .BGM_notation{
+            background: #AE9890;
+            padding: 10px 10px;
+            
+        }
+    }
+}
+
+
+</style>
+<Layout />
+<Header />
+    <section class="main-container">
+        <div class="toc_title">
+            <a href="">通常版</a>
+            <a href="">限定版</a>
+        </div>
+        <div class="BGM_display">
+            <p>大辞典解放率</p>
+            <p class="BGM_notation">35%</p>
+        </div>
+    </section>
+<Footer />
