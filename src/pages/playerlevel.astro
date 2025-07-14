@@ -14,6 +14,7 @@ img{
 }
 .main-container{
     background: #fcfcfc;
+    position: fixed;
     .player_back{
         margin-top: -30px;
         height: 30%;
@@ -61,6 +62,16 @@ img{
             margin-left: 10px;
         }
     }
+    .toc_items{
+        display: flex;
+        justify-content: space-around;
+        .player_title{
+            color: #fcfcfc;
+            background: #AE9890;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+    }
 }
 </style>
 <Layout />
@@ -76,8 +87,26 @@ img{
                 </div>
             <p class="player_level">プレイヤーレベル<span class="number">15</span></p>
         </div>
-        <div class="player_data">
-            <p class="toc">記録</p>
+        <div>
+            <div class="player_data">
+                <p class="toc">記録</p>
+            </div>
+            <div class="toc_items">
+                <p class="player_title">消化タスク</p>
+                <p>65個</p>
+            </div>
+            <div class="toc_items">
+                <p class="player_title">大辞典解放率</p>
+                <p>26%</p>
+            </div>
+            <div class="toc_items">
+                <p class="player_title">トロフィー数</p>
+                <p>0個</p>
+            </div>
+            <div class="toc_items">
+                <p class="player_title">最高タスク数</p>
+                <p>6個</p>
+            </div>
         </div>
     </main>
 <Footer />
