@@ -2,42 +2,65 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { Image } from  "astro:assets";
+import Last from "../assets/LASTAME.jpeg";
+import M from "../assets/M.jpeg";
+import Yuzu from "../assets/YUZU.jpeg";
+import Syonan from "../assets/SYOUNAN.jpeg";
+import Sizuku from "../assets/SIZUKU.jpeg";
+import Saito from "../assets/SAITOU.jpeg";
+import Wanima from "../assets/WANIMA.jpeg";
 
 import "../styles/style.scss";
 
 ---
 <style lang="scss">
-body{
+body {
     background: #FBEFE0;
-    position: fixed;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
 }
-.main-container{
+
+img {
+    width: 25%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.main-container {
     font-weight: bold;
     background: #FBEFE0;
-        .toc_title {
+
+    .toc_title {
         display: flex;
         justify-content: space-around;
+        margin-top: 20px;
+
         a {
-            position: relative;
-            padding-bottom: 4px;
-            text-decoration: none;
-            color: #050500;
-            &::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 0;
-                height: 2px;
-                background-color: #000;
-                transition: width 0.3s ease;
-            }
-            &:hover::after {
-                width: 100%;
-            }
+        position: relative;
+        padding-bottom: 4px;
+        text-decoration: none;
+        color: #050500;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #000;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
         }
     }
-    .BGM_display{
+
+    .BGM_display {
         text-align: center;
         .BGM_notation {
             background: #AE9890;
@@ -47,7 +70,44 @@ body{
             margin-top: -20px;
         }
     }
+    .BGM_fixed {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    .scroll-area {
+        height: 350px; // 必要に応じて調整
+        overflow-y: scroll;
+        padding-right: 10px;
+    }
+    .fixed {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        span {
+            background: #ccc;
+            color: white;
+            font-weight: bold;
+            padding: 20px 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            }
+        }
+    }
+    .back {
+    text-align: center;
+    margin: 30px 0;
+        a {
+            padding: 10px 20px;
+            color: #fcfcfc;
+            background: #AE9890;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+    }
 }
+
 
 
 </style>
@@ -61,6 +121,38 @@ body{
         <div class="BGM_display">
             <p>大辞典解放率</p>
             <p class="BGM_notation">35%</p>
+        </div>
+        <div class="BGM_fixed">
+            <div class="scroll-area">
+                <div class="fixed">
+                    <Image src={Last} alt="Last" />
+                    <Image src={M} alt="M" />
+                    <Image src={Yuzu} alt="Yuzu" />
+                </div>
+                <div class="fixed">
+                    <Image src={Syonan} alt="Syonan" />
+                    <Image src={Sizuku} alt="Sizuku" />
+                    <Image src={Saito} alt="Saito" />
+                </div>
+                <div class="fixed">
+                    <Image src={Wanima} alt="Wanima" />
+                    <span>8</span>
+                    <span>9</span>
+                </div>
+                <div class="fixed">
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                </div>
+                <div class="fixed">
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                </div>
+            </div>
+        </div>
+        <div class="back">
+            <a href="">戻る</a>
         </div>
     </section>
 <Footer />
