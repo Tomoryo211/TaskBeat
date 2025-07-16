@@ -159,18 +159,18 @@ body {
 
 <script>
 if (typeof window !== 'undefined') {
-  const modal = document.getElementById('modal');
-  const closeModal = document.getElementById('closeModal');
-  const userImgs = document.querySelectorAll('.user_img');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    const userImgs = document.querySelectorAll('.user_img');
 
-  userImgs.forEach(img => {
+userImgs.forEach(img => {
     img.addEventListener('click', () => {
-      modal.style.display = 'flex';
+        modal.style.display = 'flex';
     });
-  });
+});
 
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
 }
 </script>

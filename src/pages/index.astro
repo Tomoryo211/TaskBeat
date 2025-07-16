@@ -2,58 +2,65 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from  "astro:assets";
+import { Image } from "astro:assets";
 import Box from "../assets/box.png";
 import Plus from "../assets/plus.png";
-
 import "../styles/style.scss";
-
 ---
-
 <style lang="scss">
 img {
   background: #AE9890;
   border-radius: 50px;
   padding: 10px 10px;
 }
-.fixed{
-      position: fixed;
-    .btn{
-    display: flex;
-    justify-content: space-around;
-  }
+.fixed {
+  position: fixed;
+  bottom: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
-
-
+.todo-list {
+  margin-top: 40px;
+  padding-bottom: 100px;
+}
+.todo-item {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 
 <Layout>
   <Header />
-    <main class="main-container">
-      <div>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
-        <p>ここに追加されていく</p>
+  <main class="main-container">
+    <!-- ToDoリスト -->
+    <div class="todo-list" id="todo-list">
+      <div class="todo-item">
+        <span>卵を買いに行く</span><span>３つ入りのやつ</span>
       </div>
-      <div class="fixed">
-        <div class="btn">
-          <Image src={Box} alt="削除ボタン" />
-          <Image src={Plus} alt="追加ボタン" />
-        </div>
-      </div>
-    </main>
-  <Footer />
-</Layout> 
+    </div>
 
+    <!-- フッターボタン -->
+    <div class="fixed">
+      <Image src={Box} alt="削除ボタン" />
+      <Image src={Plus} alt="追加ボタン" id="add-button" />
+    </div>
+  </main>
+  <Footer />
+
+  <!-- JavaScript -->
+  <script type="module">
+    const addBtn = document.getElementById('add-button');
+    const todoList = document.getElementById('todo-list');
+
+    addBtn.addEventListener('click', () => {
+      const item = document.createElement('div');
+      item.className = 'todo-item';
+      item.innerHTML = '<span>新しいToDo</span><span>メモ</span>';
+      todoList.appendChild(item);
+    });
+  </script>
+</Layout>
