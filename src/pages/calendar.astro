@@ -19,7 +19,31 @@ img{
 </style>
 <Layout>
     <Header />
-    <section class="main-container">
-        
-    </section>
+        <main class="main-container">
+            <section class="calendar-container">
+                <div class="header">
+                    <button id="prevBtn">←</button>
+                    <h2 id="calendarTitle"></h2>
+                    <button id="nextBtn">→</button>
+                </div>
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th class="sun">日</th>
+                            <th>月</th>
+                            <th>火</th>
+                            <th>水</th>
+                            <th>木</th>
+                            <th>金</th>
+                            <th class="sat">土</th>
+                        </tr>
+                    </thead>
+                <tbody id="calendarBody"></tbody>
+                </table>
+                <div class="back-button">
+                    <button onclick="history.back()">戻る</button>
+                </div>
+            </section>
+            <script type="module" src="/scripts/calendar.js"></script>
+        </main>
     <Footer />
