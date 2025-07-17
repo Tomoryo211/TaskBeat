@@ -7,15 +7,106 @@ import "../styles/style.scss";
 
 ---
 <style lang="scss">
-body{
-    background: #FBEFE0;
+body {
+  margin: 0;
+  padding: 0;
+  background: #fdf0df;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-height: 100vh;
+  font-family: sans-serif;
 }
-img{
-    border-radius: 50%;
+
+.main-container {
+  text-align: center;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+  background-color: #fdf0df;
+  overflow-y: auto;
+  position: relative;
+  padding: 60px 0 100px 0;
 }
-.main-container{
-    background: #FBEFE0;
+
+// カレンダー全体の枠
+.calendar-container {
+  background: white;
+  border-radius: 140px 140px 0 0;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+// 年月タイトル
+.calendar-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+// カレンダーテーブル
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    width: 14.28%;
+    height: 48px;
+    border: 1px solid #000;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  th.sun {
+    color: #f85d5d;
+  }
+
+  th.sat {
+    color: #80bfff;
+  }
+}
+
+// 状態表示（連続日数）
+.status {
+  margin-top: 20px;
+
+  .now {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .streak {
+    font-size: 24px;
+    font-weight: bold;
+
+    .days {
+      font-size: 40px;
+      color: #f85d5d;
+      margin-right: 4px;
+    }
+  }
+}
+
+// 戻るボタン
+.back-button {
+  margin-top: 30px;
+
+  button {
+    padding: 12px 50px;
+    font-size: 18px;
+    background: #c4a99c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+
+
 </style>
 <Layout>
     <Header />
@@ -44,6 +135,71 @@ img{
                     <button onclick="history.back()">戻る</button>
                 </div>
             </section>
-            <script type="module" src="/scripts/calendar.js"></script>
+            <script>
+                const calendarTitle = document.getElementById("calendarTitle");
+                const calendarBody = document.getElementById("calendarBody");
+                const prevBtn = document.getElementById("prevBtn");
+                const nextBtn = document.getElementById("nextBtn");
+
+                let today = new Date();
+                let currentMonth = today.getMonth();
+                let currentYear = today.getFullYear();
+
+                function renderCalendar(month, year) {
+                const monthNames = [
+                    "1月", "2月", "3月", "4月", "5月", "6月",
+                    "7月", "8月", "9月", "10月", "11月", "12月"
+                ];
+                const firstDay = new Date(year, month, 1).getDay();
+                const lastDate = new Date(year, month + 1, 0).getDate();
+
+                calendarTitle.textContent = `${year}年 ${monthNames[month]}`;
+                calendarBody.innerHTML = "";
+
+                let date = 1;
+                for (let i = 0; i < 6; i++) {
+                    const row = document.createElement("tr");
+
+                    for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDay) {
+                        cell.textContent = "";
+                    } else if (date > lastDate) {
+                        cell.textContent = "";
+                    } else {
+                        cell.textContent = date;
+                        date++;
+                    }
+
+                    row.appendChild(cell);
+                    }
+
+                    calendarBody.appendChild(row);
+                    if (date > lastDate) break;
+                }
+                }
+
+                prevBtn.addEventListener("click", () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar(currentMonth, currentYear);
+                });
+
+                nextBtn.addEventListener("click", () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar(currentMonth, currentYear);
+                });
+
+                renderCalendar(currentMonth, currentYear);
+            </script>
         </main>
+        
     <Footer />
