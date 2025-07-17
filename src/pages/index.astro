@@ -38,7 +38,6 @@ import "../styles/style.scss";
     border: none;
     border-radius: 4px;
   }
-
   button {
     background: #AE9890;
     color: white;
@@ -49,7 +48,6 @@ import "../styles/style.scss";
     cursor: pointer;
   }
 }
-
 /* スクロール部分全体 */
 .scroll-area {
   flex-grow: 1;
@@ -63,7 +61,6 @@ import "../styles/style.scss";
   flex-direction: column;
   align-items: center;
   gap: 15px;
-
   .todo-item {
     font-weight: bold;
     font-size: 18px;
@@ -73,7 +70,6 @@ import "../styles/style.scss";
     cursor: pointer;
     transition: background 0.3s;
   }
-
   .todo-item.selected {
     background: #f9bcbc;
   }
@@ -128,14 +124,22 @@ import "../styles/style.scss";
     const deleteBtn = document.getElementById("delete-button");
     const list = document.getElementById("todo-list");
 
-    // プラスボタン → 入力欄にフォーカス
+    // 🔸 LocalStorageから初期読み込み
+    let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+    todos.forEach(text => createTodoItem(text));
+
+    // 🔹 プラスボタン → 入力欄にフォーカス
     plusBtn.addEventListener("click", () => input.focus());
 
-    // ToDo追加
-    addBtn.addEventListener("click", () => {
-      const text = input.value.trim();
-      if (!text) return;
+    // 🔸 ToDo追加処理
+    function addTodo(text) {
+      todos.unshift(text);
+      saveTodos();
+      createTodoItem(text, true);
+    }
 
+    // 🔹 ToDo要素作成
+    function createTodoItem(text, prepend = false) {
       const todo = document.createElement("div");
       todo.className = "todo-item";
       todo.textContent = text;
@@ -144,14 +148,29 @@ import "../styles/style.scss";
         todo.classList.toggle("selected");
       });
 
-      list.prepend(todo);
+      prepend ? list.prepend(todo) : list.appendChild(todo);
+    }
+
+    // 🔸 追加ボタン押下
+    addBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) return;
+      addTodo(text);
       input.value = "";
     });
 
-    // 削除
+    // 🔹 削除処理
     deleteBtn.addEventListener("click", () => {
-      document.querySelectorAll(".todo-item.selected").forEach(el => el.remove());
+      const selected = [...document.querySelectorAll(".todo-item.selected")];
+      todos = todos.filter(t => !selected.some(sel => sel.textContent === t));
+      selected.forEach(el => el.remove());
+      saveTodos();
     });
+
+    // 🔸 保存
+    function saveTodos() {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
   });
 </script>
   <Footer />

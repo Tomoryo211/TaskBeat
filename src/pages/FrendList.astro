@@ -86,6 +86,34 @@ body {
     text-align: center;
     font-weight: bold;
     border: 1px solid #999;
+    .Frend_detail{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        background: #AE9890;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        .song_name{
+            color: #fcfcfc
+        }
+        .Frend_dt{
+            color: #fcfcfc;
+        }
+        img{
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            text-align: right;
+            margin-left: 35px;
+        }
+    }
+    .Lank{
+        margin: 10px 0;
+        .Lank_name{
+            color: red;
+        }
+    }
     img{
     width: 80px;
     height: 80px;
@@ -95,7 +123,7 @@ body {
     .ok-btn{
     margin-top: 20px;
     padding: 10px 30px;
-    background: #AE9890;
+    background: #F19D83;
     color: #fcfcfc;
     border: none;
     border-radius: 6px;
@@ -136,15 +164,15 @@ body {
 <!-- モーダル -->
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            <div style="display: flex; align-items: center; gap: 10px; background: #AE9890; padding: 10px; border-radius: 10px 10px 0 0;">
-                <span style="color: white;">👤 フレンド詳細</span>
-                <Image src={User} alt="曲ジャケ" style="width: 30px; height: 30px; border-radius: 4px;" />
-                <span style="color: white;">シグナル<br />WANIMA</span>
+            <div class="Frend_detail">
+                <span class="Frend_dt">👤 フレンド詳細</span>
+                <Image  src={User} alt="曲ジャケ" />
+                <span class="song_name">シグナル<br />WANIMA</span>
             </div>
             <br />
             <Image src={User} alt="ユーザー画像" />
-            <div style="margin: 10px 0;">
-                <span style="color: red;">ランク13</span> 瀧本
+            <div class="Lank">
+                <span class="Lank_name">ランク13</span> 瀧本
             </div>
             <div class="stats">
                 <div>消化タスク</div>65個
