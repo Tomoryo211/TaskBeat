@@ -8,92 +8,86 @@ import "../styles/style.scss";
 ---
 <style lang="scss">
 body {
-  margin: 0;
-  padding: 0;
-  background: #fdf0df;
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  min-height: 100vh;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fdf0df;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    position: fixed;
+    font-family: sans-serif;
 }
 
 .main-container {
-  text-align: center;
-  width: 100%;
-  max-width: 390px;
-  min-height: 100vh;
-  background-color: #fdf0df;
-  overflow-y: auto;
-  position: relative;
-  padding: 60px 0 100px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 390px;
+    min-height: 100vh;
+    background-color: #fdf0df;
+    overflow-y: auto;
+    position: relative;
+    padding: 60px 0 100px 0;
 }
 
 // カレンダー全体の枠
 .calendar-container {
-  background: white;
-  border-radius: 140px 140px 0 0;
-  padding: 20px;
-  margin-top: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 140px 140px 0 0;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 // 年月タイトル
 .calendar-container h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 // カレンダーテーブル
 .calendar {
-  width: 100%;
-  border-collapse: collapse;
-
-  th, td {
+    width: 100%;
+    border-collapse: collapse;
+    th, td {
     width: 14.28%;
     height: 48px;
     border: 1px solid #000;
     font-size: 16px;
     text-align: center;
-  }
-
-  th.sun {
+    }
+    th.sun {
     color: #f85d5d;
-  }
-
-  th.sat {
+    }
+    th.sat {
     color: #80bfff;
-  }
+    }
 }
 
 // 状態表示（連続日数）
 .status {
-  margin-top: 20px;
-
-  .now {
+    margin-top: 20px;
+    .now {
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 6px;
-  }
-
-  .streak {
+    }
+    .streak {
     font-size: 24px;
     font-weight: bold;
-
     .days {
-      font-size: 40px;
-      color: #f85d5d;
-      margin-right: 4px;
+        font-size: 40px;
+        color: #f85d5d;
+        margin-right: 4px;
     }
-  }
+    }
 }
 
 // 戻るボタン
 .back-button {
-  margin-top: 30px;
-
-  button {
+    margin-top: 30px;
+    button {
     padding: 12px 50px;
     font-size: 18px;
     background: #c4a99c;
@@ -102,7 +96,7 @@ body {
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-  }
+    }
 }
 
 
@@ -110,102 +104,36 @@ body {
 </style>
 <Layout>
     <Header />
-  <main class="main-container">
-    <section class="calendar-container">
-      <h2><span class="year">2025年</span><span class="month">4月</span></h2>
-      <table class="calendar">
-        <thead>
-          <tr>
-            <th class="sun">日</th>
-            <th>月</th>
-            <th>火</th>
-            <th>水</th>
-            <th>木</th>
-            <th>金</th>
-            <th class="sat">土</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
-          <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
-          <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
-          <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
-          <tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
-        </tbody>
-      </table>
-      <div class="status">
-        <p class="now">ただいま</p>
-        <p class="streak"><span class="days">4</span>日連続</p>
-      </div>
-      <div class="back-button">
-        <button>戻る</button>
-      </div>
-    </section>
-  </main>
-            <script>
-                const calendarTitle = document.getElementById("calendarTitle");
-                const calendarBody = document.getElementById("calendarBody");
-                const prevBtn = document.getElementById("prevBtn");
-                const nextBtn = document.getElementById("nextBtn");
-
-                let today = new Date();
-                let currentMonth = today.getMonth();
-                let currentYear = today.getFullYear();
-
-                function renderCalendar(month, year) {
-                const monthNames = [
-                    "1月", "2月", "3月", "4月", "5月", "6月",
-                    "7月", "8月", "9月", "10月", "11月", "12月"
-                ];
-                const firstDay = new Date(year, month, 1).getDay();
-                const lastDate = new Date(year, month + 1, 0).getDate();
-
-                calendarTitle.textContent = `${year}年 ${monthNames[month]}`;
-                calendarBody.innerHTML = "";
-
-                let date = 1;
-                for (let i = 0; i < 6; i++) {
-                    const row = document.createElement("tr");
-
-                    for (let j = 0; j < 7; j++) {
-                    const cell = document.createElement("td");
-
-                    if (i === 0 && j < firstDay) {
-                        cell.textContent = "";
-                    } else if (date > lastDate) {
-                        cell.textContent = "";
-                    } else {
-                        cell.textContent = date;
-                        date++;
-                    }
-
-                    row.appendChild(cell);
-                    }
-
-                    calendarBody.appendChild(row);
-                    if (date > lastDate) break;
-                }
-                }
-
-                prevBtn.addEventListener("click", () => {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentMonth = 11;
-                    currentYear--;
-                }
-                renderCalendar(currentMonth, currentYear);
-                });
-
-                nextBtn.addEventListener("click", () => {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentMonth = 0;
-                    currentYear++;
-                }
-                renderCalendar(currentMonth, currentYear);
-                });
-
-                renderCalendar(currentMonth, currentYear);
-            </script>
-        
+        <main class="main-container">
+            <section class="calendar-container">
+            <h2><span class="year">2025年</span><span class="month">7月</span></h2>
+            <table class="calendar">
+                <thead>
+                <tr>
+                    <th class="sun">日</th>
+                    <th>月</th>
+                    <th>火</th>
+                    <th>水</th>
+                    <th>木</th>
+                    <th>金</th>
+                    <th class="sat">土</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+                <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                <tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+            <div class="status">
+                <p class="now">ただいま</p>
+                <p class="streak"><span class="days">4</span>日連続</p>
+            </div>
+            <div class="back-button">
+                <button>戻る</button>
+            </div>
+            </section>
+        </main>
     <Footer />
