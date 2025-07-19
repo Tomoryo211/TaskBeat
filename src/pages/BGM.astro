@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from  "astro:assets";
+import { Image } from "astro:assets";
 import Last from "../assets/LASTAME.jpeg";
 import M from "../assets/M.jpeg";
 import Yuzu from "../assets/YUZU.jpeg";
@@ -10,22 +10,25 @@ import Syonan from "../assets/SYOUNAN.jpeg";
 import Sizuku from "../assets/SIZUKU.jpeg";
 import Saito from "../assets/SAITOU.jpeg";
 import Wanima from "../assets/WANIMA.jpeg";
+import Rekod from "../assets/rekod.png";
+
 
 import "../styles/style.scss";
-
 ---
+
 <style lang="scss">
 body {
     background: #FBEFE0;
     margin: 0;
     padding: 0;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 img {
     width: 25%;
     height: auto;
-    border-radius: 50%;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
 .main-container {
@@ -35,7 +38,7 @@ img {
         display: flex;
         justify-content: space-around;
         margin-top: 20px;
-        a {
+    a {
         position: relative;
         padding-bottom: 4px;
         text-decoration: none;
@@ -52,29 +55,29 @@ img {
         }
         &:hover::after {
             width: 100%;
-        }
+            }
         }
     }
     .BGM_display {
-        text-align: center;
-        .BGM_notation {
-            background: #AE9890;
-            padding: 10px 60px;
-            display: inline-block;
-            color: #fcfcfc;
-            margin-top: -20px;
-        }
+    text-align: center;
+    .BGM_notation {
+        background: #AE9890;
+        padding: 10px 60px;
+        display: inline-block;
+        color: #fcfcfc;
+        margin-top: -20px;
+    }
     }
     .BGM_fixed {
         display: flex;
         justify-content: center;
         margin-top: 20px;
-    .scroll-area {
-        height: 350px; // 必要に応じて調整
+        .scroll-area {
+        height: 350px;
         overflow-y: scroll;
         padding-right: 10px;
-    }
-    .fixed {
+        }
+        .fixed {
         display: flex;
         justify-content: space-around;
         margin-bottom: 20px;
@@ -87,65 +90,190 @@ img {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            }
+        }
         }
     }
     .back {
-    text-align: center;
-    margin: 30px 0;
+        text-align: center;
+        margin: 30px 0;
         a {
-            padding: 10px 20px;
-            color: #fcfcfc;
-            background: #AE9890;
-            text-decoration: none;
-            margin-top: 20px;
+        padding: 10px 20px;
+        color: #fcfcfc;
+        background: #AE9890;
+        text-decoration: none;
+        margin-top: 20px;
         }
     }
 }
 
+/* モーダル関連 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    .modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    img.jacket {
+        width: 150px;
+        border-radius: 8px;
+    }
+    h2 {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+    }
+    p {
+        margin-bottom: 1rem;
+        font-weight: bold;
+    }
+    img.record {
+        width: 200px;
+        margin-top: 1rem;
+    }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+}
+.modal.show {
+    display: flex;
+}
 </style>
+
 <Layout />
 <Header />
-    <section class="main-container">
-        <div class="toc_title">
-            <a href="">通常版</a>
-            <a href="">限定版</a>
+<section class="main-container">
+    <div class="toc_title">
+        <a href="">通常版</a>
+        <a href="">限定版</a>
+    </div>
+
+    <div class="BGM_display">
+        <p>大辞典解放率</p>
+        <p class="BGM_notation">35%</p>
+    </div>
+
+    <div class="BGM_fixed">
+        <div class="scroll-area">
+        <div class="fixed">
+            <Image src={Last} alt="LASTAME" />
+            <Image src={M} alt="M" />
+            <Image src={Yuzu} alt="YUZU" />
         </div>
-        <div class="BGM_display">
-            <p>大辞典解放率</p>
-            <p class="BGM_notation">35%</p>
+        <div class="fixed">
+            <Image src={Syonan} alt="SYOUNAN" />
+            <Image src={Sizuku} alt="SIZUKU" />
+            <Image src={Saito} alt="SAITOU" />
         </div>
-        <div class="BGM_fixed">
-            <div class="scroll-area">
-                <div class="fixed">
-                    <Image src={Last} alt="Last" />
-                    <Image src={M} alt="M" />
-                    <Image src={Yuzu} alt="Yuzu" />
-                </div>
-                <div class="fixed">
-                    <Image src={Syonan} alt="Syonan" />
-                    <Image src={Sizuku} alt="Sizuku" />
-                    <Image src={Saito} alt="Saito" />
-                </div>
-                <div class="fixed">
-                    <Image src={Wanima} alt="Wanima" />
-                    <span>8</span>
-                    <span>9</span>
-                </div>
-                <div class="fixed">
-                    <span>10</span>
-                    <span>11</span>
-                    <span>12</span>
-                </div>
-                <div class="fixed">
-                    <span>10</span>
-                    <span>11</span>
-                    <span>12</span>
-                </div>
-            </div>
+        <div class="fixed">
+            <Image src={Wanima} alt="WANIMA" />
+            <span>8</span>
+            <span>9</span>
         </div>
-        <div class="back">
-            <a href="">戻る</a>
+        <div class="fixed">
+            <span>10</span>
+            <span>11</span>
+            <span>12</span>
         </div>
-    </section>
+        </div>
+    </div>
+
+    <div class="back">
+        <a href="">戻る</a>
+    </div>
+</section>
+
+<!-- モーダル要素 -->
+<div id="song-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" id="close-modal">×</button>
+        <img id="modal-image" class="jacket" src="" alt="ジャケット画像" />
+        <h2 id="modal-title">曲名</h2>
+        <p id="modal-artist">アーティスト名</p>
+        <img src={Rekod.src} class="record" alt="レコード画像" />
+    </div>
+</div>
+
 <Footer />
+
+<!-- JS -->
+<script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("song-modal");
+        const closeBtn = document.getElementById("close-modal");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalArtist = document.getElementById("modal-artist");
+        const songs = {
+        LASTAME: {
+            title: "最後の雨",
+            artist: "中西保志",
+            img: "/assets/LASTAME.jpeg"
+        },
+        M: {
+            title: "M",
+            artist: "つるの剛士",
+            img: "/assets/M.jpeg"
+        },
+        YUZU: {
+            title: "栄光の架橋",
+            artist: "ゆず",
+            img: "/assets/YUZU.jpeg"
+        },
+        SYOUNAN: {
+            title: "純恋歌",
+            artist: "湘南乃風",
+            img: "/assets/SYOUNAN.jpeg"
+        },
+        SIZUKU: {
+            title: "雫",
+            artist: "スキマスイッチ",
+            img: "/assets/SIZUKU.jpeg"
+        },
+        SAITOU: {
+            title: "桜絵",
+            artist: "斉藤和義",
+            img: "/assets/SAITOU.jpeg"
+        },
+        WANIMA: {
+            title: "シグナル",
+            artist: "WANIMA",
+            img: "/assets/WANIMA.jpeg"
+        }
+        };
+        document.querySelectorAll("img").forEach(img => {
+        img.addEventListener("click", () => {
+            const key = img.alt;
+            const song = songs[key];
+            if (song) {
+            modalTitle.textContent = song.title;
+            modalArtist.textContent = song.artist;
+            modalImage.src = song.img;
+            modal.classList.add("show");
+            }
+        });
+        });
+        closeBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+        });
+    });
+</script>
