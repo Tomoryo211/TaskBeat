@@ -127,30 +127,24 @@ import "../styles/style.scss";
     // 🔸 LocalStorageから初期読み込み
     let todos = JSON.parse(localStorage.getItem("todos") || "[]");
     todos.forEach(text => createTodoItem(text));
-
     // 🔹 プラスボタン → 入力欄にフォーカス
     plusBtn.addEventListener("click", () => input.focus());
-
     // 🔸 ToDo追加処理
     function addTodo(text) {
       todos.unshift(text);
       saveTodos();
       createTodoItem(text, true);
     }
-
     // 🔹 ToDo要素作成
     function createTodoItem(text, prepend = false) {
       const todo = document.createElement("div");
       todo.className = "todo-item";
       todo.textContent = text;
-
       todo.addEventListener("click", () => {
         todo.classList.toggle("selected");
       });
-
       prepend ? list.prepend(todo) : list.appendChild(todo);
     }
-
     // 🔸 追加ボタン押下
     addBtn.addEventListener("click", () => {
       const text = input.value.trim();
@@ -158,7 +152,6 @@ import "../styles/style.scss";
       addTodo(text);
       input.value = "";
     });
-
     // 🔹 削除処理
     deleteBtn.addEventListener("click", () => {
       const selected = [...document.querySelectorAll(".todo-item.selected")];
@@ -166,7 +159,6 @@ import "../styles/style.scss";
       selected.forEach(el => el.remove());
       saveTodos();
     });
-
     // 🔸 保存
     function saveTodos() {
       localStorage.setItem("todos", JSON.stringify(todos));
