@@ -161,118 +161,141 @@ img {
 
 <Layout />
 <Header />
+<!-- メインコンテンツ -->
 <section class="main-container">
-    <div class="toc_title">
-        <a href="">通常版</a>
-        <a href="">限定版</a>
-    </div>
+  <div class="toc_title">
+    <a href="">通常版</a>
+    <a href="">限定版</a>
+  </div>
 
-    <div class="BGM_display">
-        <p>大辞典解放率</p>
-        <p class="BGM_notation">35%</p>
-    </div>
+  <div class="BGM_display">
+    <p>大辞典解放率</p>
+    <p class="BGM_notation">35%</p>
+  </div>
 
-    <div class="BGM_fixed">
-        <div class="scroll-area">
-        <div class="fixed">
-            <Image src={Last} alt="LASTAME" />
-            <Image src={M} alt="M" />
-            <Image src={Yuzu} alt="YUZU" />
-        </div>
-        <div class="fixed">
-            <Image src={Syonan} alt="SYOUNAN" />
-            <Image src={Sizuku} alt="SIZUKU" />
-            <Image src={Saito} alt="SAITOU" />
-        </div>
-        <div class="fixed">
-            <Image src={Wanima} alt="WANIMA" />
-            <span>8</span>
-            <span>9</span>
-        </div>
-        <div class="fixed">
-            <span>10</span>
-            <span>11</span>
-            <span>12</span>
-        </div>
-        </div>
+  <div class="BGM_fixed">
+    <div class="scroll-area">
+      <div class="fixed">
+        <Image src={Last} alt="LASTAME" />
+        <Image src={M} alt="M" />
+        <Image src={Yuzu} alt="YUZU" />
+      </div>
+      <div class="fixed">
+        <Image src={Syonan} alt="SYOUNAN" />
+        <Image src={Sizuku} alt="SIZUKU" />
+        <Image src={Saito} alt="SAITOU" />
+      </div>
+      <div class="fixed">
+        <Image src={Wanima} alt="WANIMA" />
+        <span>8</span>
+        <span>9</span>
+      </div>
+      <div class="fixed">
+        <span>10</span>
+        <span>11</span>
+        <span>12</span>
+      </div>
     </div>
+  </div>
 
-    <div class="back">
-        <a href="">戻る</a>
-    </div>
+  <div class="back">
+    <a href="">戻る</a>
+  </div>
 </section>
 
-<!-- モーダル要素 -->
+<!-- モーダル -->
 <div id="song-modal" class="modal">
-    <div class="modal-content">
-        <button class="close-btn" id="close-modal">×</button>
-        <img id="modal-image" class="jacket" src="" alt="ジャケット画像" />
-        <h2 id="modal-title">曲名</h2>
-        <p id="modal-artist">アーティスト名</p>
-        <img src={Rekod.src} class="record" alt="レコード画像" />
-    </div>
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal">×</button>
+    <img id="modal-image" class="jacket" src="" alt="ジャケット画像" />
+    <h2 id="modal-title">曲名</h2>
+    <p id="modal-artist">アーティスト名</p>
+    <img src={Rekod.src} class="record" alt="レコード画像" />
+  </div>
 </div>
+
+<!-- 🎵 オーディオプレーヤー -->
+<audio id="audio-player" preload="auto"></audio>
 
 <Footer />
 
+<!-- スクリプト -->
 <script type="module">
-    document.addEventListener("DOMContentLoaded", () => {
-        const modal = document.getElementById("song-modal");
-        const closeBtn = document.getElementById("close-modal");
-        const modalImage = document.getElementById("modal-image");
-        const modalTitle = document.getElementById("modal-title");
-        const modalArtist = document.getElementById("modal-artist");
-        const songs = {
-        LASTAME: {
-            title: "最後の雨",
-            artist: "中西保志",
-            img: "/assets/LASTAME.jpeg"
-        },
-        M: {
-            title: "M",
-            artist: "つるの剛士",
-            img: "/assets/M.jpeg"
-        },
-        YUZU: {
-            title: "桜絵",
-            artist: "ゆず",
-            img: "/assets/YUZU.jpeg"
-        },
-        SYOUNAN: {
-            title: "純恋歌",
-            artist: "湘南乃風",
-            img: "/assets/SYOUNAN.jpeg"
-        },
-        SIZUKU: {
-            title: "雫",
-            artist: "スキマスイッチ",
-            img: "/assets/SIZUKU.jpeg"
-        },
-        SAITOU: {
-            title: "歌うたいのバラッド",
-            artist: "斉藤和義",
-            img: "/assets/SAITOU.jpeg"
-        },
-        WANIMA: {
-            title: "シグナル",
-            artist: "WANIMA",
-            img: "/assets/WANIMA.jpeg"
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("song-modal");
+    const closeBtn = document.getElementById("close-modal");
+    const modalImage = document.getElementById("modal-image");
+    const modalTitle = document.getElementById("modal-title");
+    const modalArtist = document.getElementById("modal-artist");
+    const audioPlayer = document.getElementById("audio-player");
+
+    const songs = {
+      LASTAME: {
+        title: "最後の雨",
+        artist: "中西保志",
+        img: "/assets/LASTAME.jpeg",
+        audio: "/audio/lastame.mp3"
+      },
+      M: {
+        title: "M",
+        artist: "つるの剛士",
+        img: "/assets/M.jpeg",
+        audio: "/audio/m.mp3"
+      },
+      YUZU: {
+        title: "桜絵",
+        artist: "ゆず",
+        img: "/assets/YUZU.jpeg",
+        audio: "/audio/yuzu.mp3"
+      },
+      SYOUNAN: {
+        title: "純恋歌",
+        artist: "湘南乃風",
+        img: "/assets/SYOUNAN.jpeg",
+        audio: "/audio/syounan.mp3"
+      },
+      SIZUKU: {
+        title: "雫",
+        artist: "スキマスイッチ",
+        img: "/assets/SIZUKU.jpeg",
+        audio: "/audio/sizuku.mp3"
+      },
+      SAITOU: {
+        title: "歌うたいのバラッド",
+        artist: "斉藤和義",
+        img: "/assets/SAITOU.jpeg",
+        audio: "/audio/saitou.mp3"
+      },
+      WANIMA: {
+        title: "シグナル",
+        artist: "WANIMA",
+        img: "/assets/WANIMA.jpeg",
+        audio: "/audio/wanima.mp3"
+      }
+    };
+
+    // 曲画像クリック
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("click", () => {
+        const key = img.alt;
+        const song = songs[key];
+        if (song) {
+          modalTitle.textContent = song.title;
+          modalArtist.textContent = song.artist;
+          modalImage.src = song.img;
+          modal.classList.add("show");
+
+          // 🎵 音楽再生
+          audioPlayer.src = song.audio;
+          audioPlayer.play();
         }
-        };
-        document.querySelectorAll("img").forEach(img => {
-        img.addEventListener("click", () => {
-            const key = img.alt;
-            const song = songs[key];
-            if (song) {
-            modalTitle.textContent = song.title;
-            modalArtist.textContent = song.artist;
-            modalImage.src = song.img;
-            modal.classList.add("show");
-            }
-        });
-        });
-        closeBtn.addEventListener("click", () => {
-        modal.classList.remove("show");
-        });
+      });
     });
+
+    // 閉じるボタン
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("show");
+      audioPlayer.pause();
+    });
+  });
 </script>
