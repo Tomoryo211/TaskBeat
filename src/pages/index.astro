@@ -2,10 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from "astro:assets";
-import Box from "../assets/box.png"; // 削除ボタン
-import Plus from "../assets/plus.png"; // 追加ボタン
-
+import { Image } from  "astro:assets";
+import Box from "../assets/box.png";
+import Plus from "../assets/plus.png";
 import "../styles/style.scss";
 ---
 
@@ -15,8 +14,10 @@ import "../styles/style.scss";
   display: flex;
   flex-direction: column;
   background: #FBEFE0;
+  overflow: hidden;
 }
 
+/* 入力フォーム：上部に固定 */
 .input-form {
   position: sticky;
   top: 0;
@@ -35,7 +36,6 @@ import "../styles/style.scss";
     border: none;
     border-radius: 4px;
   }
-
   button {
     background: #AE9890;
     color: white;
@@ -47,6 +47,7 @@ import "../styles/style.scss";
   }
 }
 
+/* ToDoリスト */
 .todo-list {
   flex-grow: 1;
   overflow-y: auto;
@@ -54,7 +55,7 @@ import "../styles/style.scss";
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  padding: 10px 0;
+  padding-bottom: 100px;
 
   .todo-item {
     font-weight: bold;
@@ -71,17 +72,23 @@ import "../styles/style.scss";
   }
 }
 
+/* ボタンを画面下に固定 */
 .btn-area {
-  margin: 30px 0;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   gap: 40px;
+  z-index: 100;
 
   img {
     width: 60px;
     height: 60px;
     background: #AE9890;
     border-radius: 50%;
+    margin-bottom: 70px;
     padding: 10px;
     cursor: pointer;
   }
@@ -100,7 +107,7 @@ import "../styles/style.scss";
     <!-- ToDoリスト -->
     <div id="todo-list" class="todo-list"></div>
 
-    <!-- ボタンたち -->
+    <!-- 下部固定の操作ボタン -->
     <div class="btn-area">
       <Image src={Box} alt="削除" id="delete-button" />
       <Image src={Plus} alt="追加" id="add-button" />
@@ -108,77 +115,79 @@ import "../styles/style.scss";
   </main>
   <Footer />
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const input = document.getElementById("todo-input");
-      const addBtn = document.getElementById("add-todo");
-      const plusBtn = document.getElementById("add-button");
-      const deleteBtn = document.getElementById("delete-button");
-      const list = document.getElementById("todo-list");
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("todo-input");
+    const addBtn = document.getElementById("add-todo");
+    const plusBtn = document.getElementById("add-button");
+    const deleteBtn = document.getElementById("delete-button");
+    const list = document.getElementById("todo-list");
 
-      let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+    // 🔸 初期化：ローカルストレージから読み込む
+    let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+    todos.forEach(todo => createTodoItem(todo));
 
-      // 初期表示
-      todos.forEach(text => createTodoItem(text));
+    // 🔹 ToDo追加（入力欄 or 下の追加ボタン）
+    function addTodo(text) {
+      const newTodo = {
+        id: Date.now(),
+        text
+      };
+      todos.unshift(newTodo);
+      saveTodos();
+      createTodoItem(newTodo, true);
+    }
 
-      // ToDo追加処理
-      function addTodo(text) {
-        todos.unshift(text);
-        saveTodos();
-        createTodoItem(text, true);
-      }
+    // 🔹 ToDo DOMを生成
+    function createTodoItem(todo, prepend = false) {
+      const todoEl = document.createElement("div");
+      todoEl.className = "todo-item";
+      todoEl.textContent = todo.text;
+      todoEl.dataset.id = todo.id;
 
-      // ToDo要素作成
-      function createTodoItem(text, prepend = false) {
-        const todo = document.createElement("div");
-        todo.className = "todo-item";
-        todo.textContent = text;
-
-        // 完了確認
-        todo.addEventListener("click", () => {
-          const ok = confirm("完了しましたか？");
-          if (ok) {
-            todo.classList.toggle("selected");
-          }
-        });
-
-        prepend ? list.prepend(todo) : list.appendChild(todo);
-      }
-
-      // 入力欄 → ボタン
-      addBtn.addEventListener("click", () => {
-        const text = input.value.trim();
-        if (!text) return;
-        addTodo(text);
-        input.value = "";
-      });
-
-      // プラス画像 → フォーカス
-      plusBtn.addEventListener("click", () => {
-        input.focus();
-      });
-
-      // ✅ 削除ボタン処理
-      deleteBtn.addEventListener("click", () => {
-        const selected = [...document.querySelectorAll(".todo-item.selected")];
-        if (selected.length === 0) {
-          alert("削除する項目を選択してください");
-          return;
+      // ✅ 選択時に確認モーダルを表示
+      todoEl.addEventListener("click", () => {
+        const confirmed = window.confirm("完了しましたか？");
+        if (confirmed) {
+          todoEl.classList.toggle("selected");
         }
-
-        // DOM削除 & 配列更新
-        selected.forEach(item => {
-          const text = item.textContent;
-          todos = todos.filter(t => t !== text);
-          item.remove();
-        });
-
-        saveTodos();
       });
 
-      function saveTodos() {
-        localStorage.setItem("todos", JSON.stringify(todos));
+      if (prepend) {
+        list.prepend(todoEl);
+      } else {
+        list.appendChild(todoEl);
       }
+    }
+
+    // 🔸 入力フォームの追加ボタン
+    addBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) return;
+      addTodo(text);
+      input.value = "";
     });
-  </script>
+
+    // 🔹 下のプラスボタンで入力にフォーカス
+    plusBtn.addEventListener("click", () => {
+      input.focus();
+    });
+
+    // 🔸 削除ボタンで選択項目を削除
+    deleteBtn.addEventListener("click", () => {
+      const selectedEls = [...document.querySelectorAll(".todo-item.selected")];
+      const selectedIds = selectedEls.map(el => Number(el.dataset.id));
+
+      todos = todos.filter(todo => !selectedIds.includes(todo.id));
+      selectedEls.forEach(el => el.remove());
+      saveTodos();
+    });
+
+    // 🔸 ローカルストレージ保存
+    function saveTodos() {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+  });
+</script>
+
 </Layout>
