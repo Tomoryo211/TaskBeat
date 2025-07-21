@@ -10,12 +10,14 @@ import "../styles/style.scss";
 ---
 
 <style lang="scss">
+body{
+  overflow: hidden;
+}
 .main-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
   background: #FBEFE0;
-  overflow: hidden;
 }
 
 .input-form {
@@ -173,99 +175,104 @@ import "../styles/style.scss";
   <Footer />
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const input = document.getElementById("todo-input");
-      const addBtn = document.getElementById("add-todo");
-      const plusBtn = document.getElementById("add-button");
-      const deleteBtn = document.getElementById("delete-button");
-      const list = document.getElementById("todo-list");
-      const doneAudio = document.getElementById("done-audio");
+      document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("todo-input");
+        const addBtn = document.getElementById("add-todo");
+        const plusBtn = document.getElementById("add-button");
+        const deleteBtn = document.getElementById("delete-button");
+        const list = document.getElementById("todo-list");
+        const doneAudio = document.getElementById("done-audio");
 
-      const modal = document.getElementById("modal");
-      const modalTitle = document.getElementById("modal-title");
-      const modalMemo = document.getElementById("modal-memo");
-      const okModal = document.getElementById("ok-modal");
-      const cancelModal = document.getElementById("cancel-modal");
+        const modal = document.getElementById("modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalMemo = document.getElementById("modal-memo");
+        const okModal = document.getElementById("ok-modal");
+        const cancelModal = document.getElementById("cancel-modal");
 
-      let todos = JSON.parse(localStorage.getItem("todos") || "[]");
-      let currentTarget = null;
+        let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+        let currentTarget = null;
 
-      todos.forEach(todo => createTodoItem(todo));
+        todos.forEach(todo => createTodoItem(todo));
 
-      function addTodo(text) {
-        const newTodo = { id: Date.now().toString(), text };
-        todos.unshift(newTodo);
-        saveTodos();
-        createTodoItem(newTodo, true);
-      }
+        function addTodo(text) {
+          const newTodo = { id: Date.now().toString(), text };
+          todos.unshift(newTodo);
+          saveTodos();
+          createTodoItem(newTodo, true);
+        }
 
-      function createTodoItem(todo, prepend = false) {
-        const todoEl = document.createElement("div");
-        todoEl.className = "todo-item";
-        todoEl.textContent = todo.text;
-        todoEl.dataset.id = todo.id;
+        function createTodoItem(todo, prepend = false) {
+          const todoEl = document.createElement("div");
+          todoEl.className = "todo-item";
+          todoEl.textContent = todo.text;
+          todoEl.dataset.id = todo.id;
 
         todoEl.addEventListener("click", () => {
+          // 選択状態をトグルする（ON/OFF）
+          todoEl.classList.toggle("selected");
+
+          // モーダル表示
           currentTarget = todoEl;
           modalTitle.textContent = todo.text;
           modalMemo.value = "";
           modal.style.display = "flex";
         });
 
-        if (prepend) {
-          list.prepend(todoEl);
-        } else {
-          list.appendChild(todoEl);
-        }
-      }
 
-      addBtn.addEventListener("click", () => {
-        const text = input.value.trim();
-        if (!text) return;
-        addTodo(text);
-        input.value = "";
-      });
-
-      plusBtn.addEventListener("click", () => {
-        input.focus();
-      });
-
-      deleteBtn.addEventListener("click", () => {
-        const selectedEls = [...document.querySelectorAll(".todo-item.selected")];
-        const selectedIds = selectedEls.map(el => el.dataset.id);
-        if (selectedIds.length === 0) return;
-
-        todos = todos.filter(todo => !selectedIds.includes(todo.id));
-        selectedEls.forEach(el => el.remove());
-        saveTodos();
-      });
-
-      function saveTodos() {
-        localStorage.setItem("todos", JSON.stringify(todos));
-      }
-
-      cancelModal.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-
-      okModal.addEventListener("click", async () => {
-        if (currentTarget) {
-          currentTarget.classList.add("selected");
-          doneAudio.play();
-
-          try {
-            const response = await fetch("/api/songs.php");
-            if (!response.ok) throw new Error("API error");
-            const data = await response.json();
-            console.log("サーバーから取得したデータ:", data);
-            // 必要に応じて data を使って処理を追加
-          } catch (err) {
-            console.error("データ取得に失敗:", err);
+          if (prepend) {
+            list.prepend(todoEl);
+          } else {
+            list.appendChild(todoEl);
           }
-
-          modal.style.display = "none";
         }
+
+        addBtn.addEventListener("click", () => {
+          const text = input.value.trim();
+          if (!text) return;
+          addTodo(text);
+          input.value = "";
+        });
+
+        plusBtn.addEventListener("click", () => {
+          input.focus();
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          const selectedEls = [...document.querySelectorAll(".todo-item.selected")];
+          const selectedIds = selectedEls.map(el => el.dataset.id);
+          if (selectedIds.length === 0) return;
+
+          todos = todos.filter(todo => !selectedIds.includes(todo.id));
+          selectedEls.forEach(el => el.remove());
+          saveTodos();
+        });
+
+        function saveTodos() {
+          localStorage.setItem("todos", JSON.stringify(todos));
+        }
+
+        cancelModal.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+
+        okModal.addEventListener("click", async () => {
+          if (currentTarget) {
+            currentTarget.classList.add("selected");
+            doneAudio.play();
+
+            try {
+              const response = await fetch("/api/songs.php");
+              if (!response.ok) throw new Error("API error");
+              const data = await response.json();
+              console.log("サーバーから取得したデータ:", data);
+              // 必要に応じて data を使って処理を追加
+            } catch (err) {
+              console.error("データ取得に失敗:", err);
+            }
+
+            modal.style.display = "none";
+          }
+        });
       });
-    });
   </script>
 </Layout>
