@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import { Image } from  "astro:assets";
 import Box from "../assets/box.png";
 import Plus from "../assets/plus.png";
+
 import "../styles/style.scss";
 ---
 
@@ -27,7 +28,6 @@ import "../styles/style.scss";
   justify-content: center;
   gap: 10px;
   z-index: 10;
-
   input {
     padding: 10px;
     font-size: 16px;
@@ -115,79 +115,81 @@ import "../styles/style.scss";
   </main>
   <Footer />
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("todo-input");
-    const addBtn = document.getElementById("add-todo");
-    const plusBtn = document.getElementById("add-button");
-    const deleteBtn = document.getElementById("delete-button");
-    const list = document.getElementById("todo-list");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("todo-input");
+      const addBtn = document.getElementById("add-todo");
+      const plusBtn = document.getElementById("add-button");
+      const deleteBtn = document.getElementById("delete-button");
+      const list = document.getElementById("todo-list");
 
-    // 🔸 初期化：ローカルストレージから読み込む
-    let todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    todos.forEach(todo => createTodoItem(todo));
+      let todos = JSON.parse(localStorage.getItem("todos") || "[]");
 
-    // 🔹 ToDo追加（入力欄 or 下の追加ボタン）
-    function addTodo(text) {
-      const newTodo = {
-        id: Date.now(),
-        text
-      };
-      todos.unshift(newTodo);
-      saveTodos();
-      createTodoItem(newTodo, true);
-    }
+      // 初期表示
+      todos.forEach(todo => createTodoItem(todo));
 
-    // 🔹 ToDo DOMを生成
-    function createTodoItem(todo, prepend = false) {
-      const todoEl = document.createElement("div");
-      todoEl.className = "todo-item";
-      todoEl.textContent = todo.text;
-      todoEl.dataset.id = todo.id;
+      // ToDo追加
+      function addTodo(text) {
+        const newTodo = {
+          id: Date.now().toString(),  // ← id を文字列にして整合性保つ
+          text
+        };
+        todos.unshift(newTodo);
+        saveTodos();
+        createTodoItem(newTodo, true);
+      }
 
-      // ✅ 選択時に確認モーダルを表示
-      todoEl.addEventListener("click", () => {
-        const confirmed = window.confirm("完了しましたか？");
-        if (confirmed) {
-          todoEl.classList.toggle("selected");
+      // ToDo DOM生成
+      function createTodoItem(todo, prepend = false) {
+        const todoEl = document.createElement("div");
+        todoEl.className = "todo-item";
+        todoEl.textContent = todo.text;
+        todoEl.dataset.id = todo.id;
+
+        // ✅ 選択トグル処理（確認つき）
+        todoEl.addEventListener("click", () => {
+          const confirmed = confirm("完了しましたか？");
+          if (confirmed) {
+            todoEl.classList.toggle("selected");
+          }
+        });
+
+        if (prepend) {
+          list.prepend(todoEl);
+        } else {
+          list.appendChild(todoEl);
         }
+      }
+
+      // 入力欄の追加ボタン
+      addBtn.addEventListener("click", () => {
+        const text = input.value.trim();
+        if (!text) return;
+        addTodo(text);
+        input.value = "";
       });
 
-      if (prepend) {
-        list.prepend(todoEl);
-      } else {
-        list.appendChild(todoEl);
+      // 下の追加ボタンで入力欄にフォーカス
+      plusBtn.addEventListener("click", () => {
+        input.focus();
+      });
+
+      // 削除処理（選択された要素のみ）
+      deleteBtn.addEventListener("click", () => {
+        const selectedEls = [...document.querySelectorAll(".todo-item.selected")];
+        const selectedIds = selectedEls.map(el => el.dataset.id);
+        if (selectedIds.length === 0) return;
+
+        todos = todos.filter(todo => !selectedIds.includes(todo.id));
+        selectedEls.forEach(el => el.remove());
+        saveTodos();
+      });
+
+      // ローカルストレージ保存
+      function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
       }
-    }
-
-    // 🔸 入力フォームの追加ボタン
-    addBtn.addEventListener("click", () => {
-      const text = input.value.trim();
-      if (!text) return;
-      addTodo(text);
-      input.value = "";
     });
-
-    // 🔹 下のプラスボタンで入力にフォーカス
-    plusBtn.addEventListener("click", () => {
-      input.focus();
-    });
-
-    // 🔸 削除ボタンで選択項目を削除
-    deleteBtn.addEventListener("click", () => {
-      const selectedEls = [...document.querySelectorAll(".todo-item.selected")];
-      const selectedIds = selectedEls.map(el => Number(el.dataset.id));
-
-      todos = todos.filter(todo => !selectedIds.includes(todo.id));
-      selectedEls.forEach(el => el.remove());
-      saveTodos();
-    });
-
-    // 🔸 ローカルストレージ保存
-    function saveTodos() {
-      localStorage.setItem("todos", JSON.stringify(todos));
-    }
-  });
-</script>
-
+    
+  </script>
 </Layout>

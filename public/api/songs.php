@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json');
 
-// データベース接続情報
 $host = 'localhost';
 $db   = 'your_database_name';
 $user = 'your_db_user';
