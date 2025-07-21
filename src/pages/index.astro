@@ -2,11 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from  "astro:assets";
+import { Image } from "astro:assets";
 import Box from "../assets/box.png";
 import Plus from "../assets/plus.png";
 
 import "../styles/style.scss";
+
 ---
 
 <style lang="scss">
@@ -80,7 +81,7 @@ import "../styles/style.scss";
   right: 0;
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 100px;
   z-index: 100;
 
   img {
@@ -112,6 +113,9 @@ import "../styles/style.scss";
       <Image src={Box} alt="削除" id="delete-button" />
       <Image src={Plus} alt="追加" id="add-button" />
     </div>
+
+    <!-- ✅ 音声ファイル（完了確認後再生用） -->
+    <audio id="done-audio" src="/audio/syounan.mp3" preload="auto"></audio>
   </main>
   <Footer />
 
@@ -122,6 +126,7 @@ import "../styles/style.scss";
       const plusBtn = document.getElementById("add-button");
       const deleteBtn = document.getElementById("delete-button");
       const list = document.getElementById("todo-list");
+      const doneAudio = document.getElementById("done-audio");
 
       let todos = JSON.parse(localStorage.getItem("todos") || "[]");
 
@@ -131,7 +136,7 @@ import "../styles/style.scss";
       // ToDo追加
       function addTodo(text) {
         const newTodo = {
-          id: Date.now().toString(),  // ← id を文字列にして整合性保つ
+          id: Date.now().toString(),
           text
         };
         todos.unshift(newTodo);
@@ -151,6 +156,7 @@ import "../styles/style.scss";
           const confirmed = confirm("完了しましたか？");
           if (confirmed) {
             todoEl.classList.toggle("selected");
+            doneAudio.play();  // ✅ 音楽再生
           }
         });
 
@@ -190,6 +196,5 @@ import "../styles/style.scss";
         localStorage.setItem("todos", JSON.stringify(todos));
       }
     });
-    
   </script>
 </Layout>
