@@ -2,12 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from  "astro:assets";
-import Box from "../assets/box.png";
-import Plus from "../assets/plus.png";
+import { Image } from "astro:assets";
+import Box from "../assets/box.png"; // 削除ボタン
+import Plus from "../assets/plus.png"; // 追加ボタン
 
 import "../styles/style.scss";
-
 ---
 
 <style lang="scss">
@@ -16,10 +15,8 @@ import "../styles/style.scss";
   display: flex;
   flex-direction: column;
   background: #FBEFE0;
-  overflow: hidden;
 }
 
-/* 入力フォーム：上部に固定 */
 .input-form {
   position: sticky;
   top: 0;
@@ -38,6 +35,7 @@ import "../styles/style.scss";
     border: none;
     border-radius: 4px;
   }
+
   button {
     background: #AE9890;
     color: white;
@@ -48,19 +46,16 @@ import "../styles/style.scss";
     cursor: pointer;
   }
 }
-/* スクロール部分全体 */
-.scroll-area {
+
+.todo-list {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 10px 0;
-}
-
-/* ToDoリスト */
-.todo-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  padding: 10px 0;
+
   .todo-item {
     font-weight: bold;
     font-size: 18px;
@@ -70,17 +65,18 @@ import "../styles/style.scss";
     cursor: pointer;
     transition: background 0.3s;
   }
+
   .todo-item.selected {
     background: #f9bcbc;
   }
 }
 
-/* ボタンをToDoの一部として表示 */
 .btn-area {
   margin: 30px 0;
   display: flex;
   justify-content: center;
   gap: 40px;
+
   img {
     width: 60px;
     height: 60px;
@@ -95,73 +91,94 @@ import "../styles/style.scss";
 <Layout>
   <Header />
   <main class="main-container">
-<main class="main-container">
-  <!-- 上部固定：入力欄 -->
-  <div class="input-form">
-    <input type="text" id="todo-input" placeholder="やることを書く" />
-    <button id="add-todo">追加</button>
-  </div>
+    <!-- 入力欄 -->
+    <div class="input-form">
+      <input type="text" id="todo-input" placeholder="やることを書く" />
+      <button id="add-todo">追加</button>
+    </div>
 
-  <!-- ToDoリスト本体 -->
-  <div id="todo-list" class="todo-list"></div>
+    <!-- ToDoリスト -->
+    <div id="todo-list" class="todo-list"></div>
 
-  <!-- 下部固定：操作ボタン -->
-  <div class="btn-area">
-    <Image src={Box} alt="削除" id="delete-button" />
-    <Image src={Plus} alt="追加" id="add-button" />
-  </div>
-</main>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("todo-input");
-    const addBtn = document.getElementById("add-todo");
-    const plusBtn = document.getElementById("add-button");
-    const deleteBtn = document.getElementById("delete-button");
-    const list = document.getElementById("todo-list");
-
-    // 🔸 LocalStorageから初期読み込み
-    let todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    todos.forEach(text => createTodoItem(text));
-    // 🔹 プラスボタン → 入力欄にフォーカス
-    plusBtn.addEventListener("click", () => input.focus());
-    // 🔸 ToDo追加処理
-    function addTodo(text) {
-      todos.unshift(text);
-      saveTodos();
-      createTodoItem(text, true);
-    }
-    // 🔹 ToDo要素作成
-    function createTodoItem(text, prepend = false) {
-      const todo = document.createElement("div");
-      todo.className = "todo-item";
-      todo.textContent = text;
-      todo.addEventListener("click", () => {
-        todo.classList.toggle("selected");
-      });
-      prepend ? list.prepend(todo) : list.appendChild(todo);
-    }
-    // 🔸 追加ボタン押下
-    addBtn.addEventListener("click", () => {
-      const text = input.value.trim();
-      if (!text) return;
-      addTodo(text);
-      input.value = "";
-    });
-    // 🔹 削除処理
-    deleteBtn.addEventListener("click", () => {
-      const selected = [...document.querySelectorAll(".todo-item.selected")];
-      todos = todos.filter(t => !selected.some(sel => sel.textContent === t));
-      selected.forEach(el => el.remove());
-      saveTodos();
-    });
-    // 🔸 保存
-    function saveTodos() {
-      localStorage.setItem("todos", JSON.stringify(todos));
-    }
-  });
-</script>
+    <!-- ボタンたち -->
+    <div class="btn-area">
+      <Image src={Box} alt="削除" id="delete-button" />
+      <Image src={Plus} alt="追加" id="add-button" />
+    </div>
+  </main>
   <Footer />
-  
-</Layout> 
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("todo-input");
+      const addBtn = document.getElementById("add-todo");
+      const plusBtn = document.getElementById("add-button");
+      const deleteBtn = document.getElementById("delete-button");
+      const list = document.getElementById("todo-list");
 
+      let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+      // 初期表示
+      todos.forEach(text => createTodoItem(text));
+
+      // ToDo追加処理
+      function addTodo(text) {
+        todos.unshift(text);
+        saveTodos();
+        createTodoItem(text, true);
+      }
+
+      // ToDo要素作成
+      function createTodoItem(text, prepend = false) {
+        const todo = document.createElement("div");
+        todo.className = "todo-item";
+        todo.textContent = text;
+
+        // 完了確認
+        todo.addEventListener("click", () => {
+          const ok = confirm("完了しましたか？");
+          if (ok) {
+            todo.classList.toggle("selected");
+          }
+        });
+
+        prepend ? list.prepend(todo) : list.appendChild(todo);
+      }
+
+      // 入力欄 → ボタン
+      addBtn.addEventListener("click", () => {
+        const text = input.value.trim();
+        if (!text) return;
+        addTodo(text);
+        input.value = "";
+      });
+
+      // プラス画像 → フォーカス
+      plusBtn.addEventListener("click", () => {
+        input.focus();
+      });
+
+      // ✅ 削除ボタン処理
+      deleteBtn.addEventListener("click", () => {
+        const selected = [...document.querySelectorAll(".todo-item.selected")];
+        if (selected.length === 0) {
+          alert("削除する項目を選択してください");
+          return;
+        }
+
+        // DOM削除 & 配列更新
+        selected.forEach(item => {
+          const text = item.textContent;
+          todos = todos.filter(t => t !== text);
+          item.remove();
+        });
+
+        saveTodos();
+      });
+
+      function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+      }
+    });
+  </script>
+</Layout>
