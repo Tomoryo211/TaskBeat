@@ -207,7 +207,7 @@ img {
     <div id="song-modal" class="modal">
     <div class="modal-content">
         <button class="close-btn" id="close-modal">×</button>
-        <img id="modal-image" class="jacket" src="" alt="ジャケット画像" />
+        <img id="modal-image" class="jacket" src="" alt="" />
         <h2 id="modal-title">曲名</h2>
         <p id="modal-artist">アーティスト名</p>
         <img src={Rekod.src} class="record" alt="レコード画像" />
@@ -220,7 +220,7 @@ img {
     <Footer />
 
     <!-- スクリプト -->
-    <script type="module">
+<script type="module">
     document.addEventListener("DOMContentLoaded", () => {
         const modal = document.getElementById("song-modal");
         const closeBtn = document.getElementById("close-modal");
@@ -233,20 +233,19 @@ img {
         LASTAME: {
             title: "最後の雨",
             artist: "中西保志",
-            img: "/assets/LASTAME.jpeg",
-            audio: "/audio/lastame.mp3"
+            audio: "/audio/Last.mp3"
         },
         M: {
             title: "M",
             artist: "つるの剛士",
             img: "/assets/M.jpeg",
-            audio: "/audio/m.mp3"
+            audio: "/audio/M.mp3"
         },
         YUZU: {
             title: "桜絵",
             artist: "ゆず",
             img: "/assets/YUZU.jpeg",
-            audio: "/audio/yuzu.mp3"
+            audio: "/audio/Yuzu.mp3"
         },
         SYOUNAN: {
             title: "純恋歌",
@@ -258,13 +257,13 @@ img {
             title: "雫",
             artist: "スキマスイッチ",
             img: "/assets/SIZUKU.jpeg",
-            audio: "/audio/sizuku.mp3"
+            audio: "/audio/Sizuku.mp3"
         },
         SAITOU: {
             title: "歌うたいのバラッド",
             artist: "斉藤和義",
             img: "/assets/SAITOU.jpeg",
-            audio: "/audio/saitou.mp3"
+            audio: "/audio/Saito.mp3"
         },
         WANIMA: {
             title: "シグナル",
@@ -274,7 +273,7 @@ img {
         }
         };
 
-        // 曲画像クリック
+        // 曲画像クリックでモーダル表示＆再生
         document.querySelectorAll("img").forEach(img => {
         img.addEventListener("click", () => {
             const key = img.alt;
@@ -292,9 +291,14 @@ img {
         });
         });
 
-        // 閉じるボタン
+        // モーダル閉じるボタン
         closeBtn.addEventListener("click", () => {
         modal.classList.remove("show");
+        audioPlayer.pause();
+        });
+
+        // ✅ レコード画像クリックで音楽を停止
+        document.querySelector(".record").addEventListener("click", () => {
         audioPlayer.pause();
         });
     });
