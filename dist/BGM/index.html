@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.10.1"><title>Astro Basics</title><style>@charset "UTF-8";html,body{margin:0;width:100%;height:100%}.header[data-astro-cid-3ef6ksr2]{position:fixed;top:0;left:0;width:100%;height:70px;background-color:#f19d83;color:#fcfcfc;display:flex;justify-content:space-between;align-items:center;padding:0 16px;z-index:1000}.header[data-astro-cid-3ef6ksr2] .header_title[data-astro-cid-3ef6ksr2]{font-size:16px;font-weight:700;text-decoration:underline;margin-left:20px;margin-top:40px}.header[data-astro-cid-3ef6ksr2] .hamburger[data-astro-cid-3ef6ksr2]{position:fixed;top:20px;right:20px;z-index:1100;cursor:pointer;display:flex;flex-direction:column;justify-content:center}.header[data-astro-cid-3ef6ksr2] .hamburger[data-astro-cid-3ef6ksr2] span[data-astro-cid-3ef6ksr2]{display:block;width:30px;height:3px;background-color:#fcfcfc;margin:4px 0;transition:all .3s ease}.header[data-astro-cid-3ef6ksr2] .menu-wrapper[data-astro-cid-3ef6ksr2]{position:fixed;top:0;right:-80%;width:80%;height:100%;background-color:#f5c98b;box-shadow:-4px 0 10px #0003;transition:right .3s ease;border-top-left-radius:40px;border-bottom-left-radius:40px;z-index:1000;display:flex;align-items:center;justify-content:center}.header[data-astro-cid-3ef6ksr2] .menu-wrapper[data-astro-cid-3ef6ksr2].open{right:0}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2]{width:80%;background-color:#eda65b;border-radius:20px;padding:20px;box-shadow:0 4px 10px #0000001a;margin-bottom:30%}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2] h3[data-astro-cid-3ef6ksr2]{text-align:center;font-weight:700;margin-bottom:20px;text-decoration:underline;color:#fcfcfc}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2] ul[data-astro-cid-3ef6ksr2]{list-style:none;padding:0}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2] li[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;color:#fcfcfc;font-weight:700;margin:15px 0;border-bottom:1px solid #fcfcfc;padding-bottom:8px}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2] li[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{text-decoration:none;color:#fcfcfc}.header[data-astro-cid-3ef6ksr2] .menu[data-astro-cid-3ef6ksr2] li[data-astro-cid-3ef6ksr2] img[data-astro-cid-3ef6ksr2]{width:24px;margin-right:12px}.footer_bar[data-astro-cid-sz7xmlte]{position:fixed;bottom:0;left:0;width:100%;height:70px;background-color:#f19d83;z-index:1000}body{margin:0;padding:0;background:#fcfcfc;background-size:cover;display:flex;justify-content:center;align-items:start;min-height:100vh;font-family:sans-serif}.main-container{text-align:center;width:100%;height:100vh;max-width:390px;min-height:100vh;background-color:#fcfcfc;overflow-y:auto;position:relative;padding:100px 0}
+@charset "UTF-8";body{background:#fbefe0;margin:0;padding:0;overflow:hidden}img[data-astro-cid-qa4ctsl7]{width:25%;height:auto;border-radius:12px;cursor:pointer}.main-container[data-astro-cid-qa4ctsl7]{font-weight:700;background:#fbefe0}.main-container[data-astro-cid-qa4ctsl7] .toc_title[data-astro-cid-qa4ctsl7]{display:flex;justify-content:space-around;margin-top:20px}.main-container[data-astro-cid-qa4ctsl7] .toc_title[data-astro-cid-qa4ctsl7] a[data-astro-cid-qa4ctsl7]{position:relative;padding-bottom:4px;text-decoration:none;color:#050500}.main-container[data-astro-cid-qa4ctsl7] .toc_title[data-astro-cid-qa4ctsl7] a[data-astro-cid-qa4ctsl7]:after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background-color:#000;transition:width .3s ease}.main-container[data-astro-cid-qa4ctsl7] .toc_title[data-astro-cid-qa4ctsl7] a[data-astro-cid-qa4ctsl7]:hover:after{width:100%}.main-container[data-astro-cid-qa4ctsl7] .BGM_display[data-astro-cid-qa4ctsl7]{text-align:center}.main-container[data-astro-cid-qa4ctsl7] .BGM_display[data-astro-cid-qa4ctsl7] .BGM_notation[data-astro-cid-qa4ctsl7]{background:#ae9890;padding:10px 60px;display:inline-block;color:#fcfcfc;margin-top:-20px}.main-container[data-astro-cid-qa4ctsl7] .BGM_fixed[data-astro-cid-qa4ctsl7]{display:flex;justify-content:center;margin-top:20px}.main-container[data-astro-cid-qa4ctsl7] .BGM_fixed[data-astro-cid-qa4ctsl7] .scroll-area[data-astro-cid-qa4ctsl7]{height:350px;overflow-y:scroll;padding-right:10px}.main-container[data-astro-cid-qa4ctsl7] .BGM_fixed[data-astro-cid-qa4ctsl7] .fixed[data-astro-cid-qa4ctsl7]{display:flex;justify-content:space-around;margin-bottom:20px}.main-container[data-astro-cid-qa4ctsl7] .BGM_fixed[data-astro-cid-qa4ctsl7] .fixed[data-astro-cid-qa4ctsl7] span[data-astro-cid-qa4ctsl7]{background:#ccc;color:#fff;font-weight:700;padding:20px 45px;border-radius:50%;display:inline-flex;justify-content:center;align-items:center}.main-container[data-astro-cid-qa4ctsl7] .back[data-astro-cid-qa4ctsl7]{text-align:center;margin:30px 0}.main-container[data-astro-cid-qa4ctsl7] .back[data-astro-cid-qa4ctsl7] a[data-astro-cid-qa4ctsl7]{padding:10px 20px;color:#fcfcfc;background:#ae9890;text-decoration:none;margin-top:20px}.modal[data-astro-cid-qa4ctsl7]{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#0009;justify-content:center;align-items:center}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7]{background-color:#fff;padding:2rem;border-radius:12px;width:90%;max-width:500px;text-align:center;position:relative}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7] img[data-astro-cid-qa4ctsl7].jacket{width:150px;border-radius:8px}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7] h2[data-astro-cid-qa4ctsl7]{margin-top:1rem;font-size:1.5rem}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7] p[data-astro-cid-qa4ctsl7]{margin-bottom:1rem;font-weight:700}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7] img[data-astro-cid-qa4ctsl7].record{width:200px;margin-top:1rem}.modal[data-astro-cid-qa4ctsl7] .modal-content[data-astro-cid-qa4ctsl7] .close-btn[data-astro-cid-qa4ctsl7]{position:absolute;top:10px;right:20px;font-size:1.2rem;background:none;border:none;cursor:pointer}.modal[data-astro-cid-qa4ctsl7].show{display:flex}
+</style></head> <body data-astro-cid-sckkx6r4>  </body></html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.10.1"><title>Astro Basics</title></head> <body data-astro-cid-sckkx6r4> <header class="header" data-astro-cid-3ef6ksr2><span class="header_title" data-astro-cid-3ef6ksr2>やること</span><!-- ハンバーガーボタン --><div class="hamburger" id="hamburger" data-astro-cid-3ef6ksr2><span data-astro-cid-3ef6ksr2></span><span data-astro-cid-3ef6ksr2></span><span data-astro-cid-3ef6ksr2></span></div><!-- メニュー --><div class="menu-wrapper" id="menu" data-astro-cid-3ef6ksr2><div class="menu" data-astro-cid-3ef6ksr2><h3 data-astro-cid-3ef6ksr2>メニュー</h3><ul data-astro-cid-3ef6ksr2><li data-astro-cid-3ef6ksr2><a href="/" data-astro-cid-3ef6ksr2><img src="/_astro/home.C2kF187l_1i2rH2.webp" alt="ホーム" data-astro-cid-3ef6ksr2="true" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24">ホーム</a></li><li data-astro-cid-3ef6ksr2><a href="/BGM/" data-astro-cid-3ef6ksr2><img src="/_astro/book.BnnZWCeA_smyiD.webp" alt="BGM大辞典" data-astro-cid-3ef6ksr2="true" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24"> BGM大辞典</a></li><li data-astro-cid-3ef6ksr2><a href="/FrendList/" data-astro-cid-3ef6ksr2><img src="/_astro/friend.CqZyyaay_Z2wcQFY.webp" alt="フレンドリスト" data-astro-cid-3ef6ksr2="true" loading="lazy" decoding="async" fetchpriority="auto" width="25" height="25"> フレンドリスト</a></li><li data-astro-cid-3ef6ksr2><a href="/playerlevel/" data-astro-cid-3ef6ksr2><img src="/_astro/people.CjdW_sam_21MSEg.webp" alt="プロフィール" data-astro-cid-3ef6ksr2="true" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24"> プロフィール</a></li><li data-astro-cid-3ef6ksr2><a href="/calendar/" data-astro-cid-3ef6ksr2><img src="/_astro/calendar.KObhh6EN_1bBu1R.webp" alt="カレンダー" data-astro-cid-3ef6ksr2="true" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24"> カレンダー</a></li></ul></div></div></header> </body></html><script>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+
+    hamburger.addEventListener('click', () => {
+        menu.classList.toggle('open');
+    });
+</script><!-- メインコンテンツ --><section class="main-container" data-astro-cid-qa4ctsl7> <div class="toc_title" data-astro-cid-qa4ctsl7> <a href="" data-astro-cid-qa4ctsl7>通常版</a> <a href="" data-astro-cid-qa4ctsl7>限定版</a> </div> <div class="BGM_display" data-astro-cid-qa4ctsl7> <p data-astro-cid-qa4ctsl7>大辞典解放率</p> <p class="BGM_notation" data-astro-cid-qa4ctsl7>35%</p> </div> <div class="BGM_fixed" data-astro-cid-qa4ctsl7> <div class="scroll-area" data-astro-cid-qa4ctsl7> <div class="fixed" data-astro-cid-qa4ctsl7> <img src="/_astro/LASTAME.CDJUgrDE_Z1CsNgg.webp" alt="LASTAME" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1014" height="1019"> <img src="/_astro/M.DzjBif9i_Z29BTHB.webp" alt="M" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1006" height="1021"> <img src="/_astro/YUZU.m9IJtPkx_ygLj.webp" alt="YUZU" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1023" height="1009"> </div> <div class="fixed" data-astro-cid-qa4ctsl7> <img src="/_astro/SYOUNAN.Dy1pPvhU_Z1cdmxU.webp" alt="SYOUNAN" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1007" height="1020"> <img src="/_astro/SIZUKU.DBy-RpX5_1eqXH4.webp" alt="SIZUKU" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1002" height="1015"> <img src="/_astro/SAITOU.EqxO4QVN_Z2qrACV.webp" alt="SAITOU" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1012" height="1037"> </div> <div class="fixed" data-astro-cid-qa4ctsl7> <img src="/_astro/WANIMA.DntqqgAA_Z1LAsfI.webp" alt="WANIMA" data-astro-cid-qa4ctsl7="true" loading="lazy" decoding="async" fetchpriority="auto" width="1002" height="1025"> <span data-astro-cid-qa4ctsl7>8</span> <span data-astro-cid-qa4ctsl7>9</span> </div> <div class="fixed" data-astro-cid-qa4ctsl7> <span data-astro-cid-qa4ctsl7>10</span> <span data-astro-cid-qa4ctsl7>11</span> <span data-astro-cid-qa4ctsl7>12</span> </div> </div> </div> <div class="back" data-astro-cid-qa4ctsl7> <a href="/" data-astro-cid-qa4ctsl7>戻る</a> </div> </section> <!-- モーダル --> <div id="song-modal" class="modal" data-astro-cid-qa4ctsl7> <div class="modal-content" data-astro-cid-qa4ctsl7> <button class="close-btn" id="close-modal" data-astro-cid-qa4ctsl7>×</button> <img id="modal-image" class="jacket" src="" alt="" data-astro-cid-qa4ctsl7> <h2 id="modal-title" data-astro-cid-qa4ctsl7>曲名</h2> <p id="modal-artist" data-astro-cid-qa4ctsl7>アーティスト名</p> <img src="/_astro/rekod.CecyzfaJ.png" class="record" alt="レコード画像" data-astro-cid-qa4ctsl7> </div> </div> <!-- 🎵 オーディオプレーヤー --> <audio id="audio-player" preload="auto" data-astro-cid-qa4ctsl7></audio> <html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.10.1"><title>Astro Basics</title></head> <body data-astro-cid-sckkx6r4> <div class="footer_bar" data-astro-cid-sz7xmlte></div> </body></html> <!-- スクリプト --> <script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("song-modal");
+        const closeBtn = document.getElementById("close-modal");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalArtist = document.getElementById("modal-artist");
+        const audioPlayer = document.getElementById("audio-player");
+
+        const songs = {
+        LASTAME: {
+            title: "最後の雨",
+            artist: "中西保志",
+            audio: "/audio/Last.mp3"
+        },
+        M: {
+            title: "M",
+            artist: "つるの剛士",
+            img: "/assets/M.jpeg",
+            audio: "/audio/M.mp3"
+        },
+        YUZU: {
+            title: "桜絵",
+            artist: "ゆず",
+            img: "/assets/YUZU.jpeg",
+            audio: "/audio/Yuzu.mp3"
+        },
+        SYOUNAN: {
+            title: "純恋歌",
+            artist: "湘南乃風",
+            img: "/assets/SYOUNAN.jpeg",
+            audio: "/audio/syounan.mp3"
+        },
+        SIZUKU: {
+            title: "雫",
+            artist: "スキマスイッチ",
+            img: "/assets/SIZUKU.jpeg",
+            audio: "/audio/Sizuku.mp3"
+        },
+        SAITOU: {
+            title: "歌うたいのバラッド",
+            artist: "斉藤和義",
+            img: "/assets/SAITOU.jpeg",
+            audio: "/audio/Saito.mp3"
+        },
+        WANIMA: {
+            title: "シグナル",
+            artist: "WANIMA",
+            img: "/assets/WANIMA.jpeg",
+            audio: "/audio/wanima.mp3"
+        }
+        };
+
+        // 曲画像クリックでモーダル表示＆再生
+        document.querySelectorAll("img").forEach(img => {
+        img.addEventListener("click", () => {
+            const key = img.alt;
+            const song = songs[key];
+            if (song) {
+            modalTitle.textContent = song.title;
+            modalArtist.textContent = song.artist;
+            modalImage.src = song.img;
+            modal.classList.add("show");
+
+            // 🎵 音楽再生
+            audioPlayer.src = song.audio;
+            audioPlayer.play();
+            }
+        });
+        });
+
+        // モーダル閉じるボタン
+        closeBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+        audioPlayer.pause();
+        });
+
+        // ✅ レコード画像クリックで音楽を停止
+        document.querySelector(".record").addEventListener("click", () => {
+        audioPlayer.pause();
+        });
+    });
+</script>
