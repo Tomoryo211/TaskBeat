@@ -1,0 +1,25 @@
+再現手順表
+
+まずastroをインストールするためにターミナルで
+	node -v
+	npm -v
+これをうってnode.jsをインストールする
+
+その後Astroを入れるためにターミナルで
+	npm create astro@latest
+これをターミナルで実行する
+
+その後、対話形式で問いかけられるので
+✔ Where should we create your new project? › my-astro-site
+✔ Which template would you like to use? › Blog, Portfolio, Minimal, etc.
+✔ Install dependencies? › Yes
+✔ Initialize a new git repository? › Yes or No
+
+→ 最初は Minimal を選ぶのがおすすめです。
+→ フォルダ名に「my-astro-site」などを指定すれば、そこに生成されます。
+
+その後プロジェクト内に移り
+コントロール＋@でターミナルを出して
+そこで「npm run dev」を打つことでブラウザが立ち上がり
+ 送られてきたURLをcommand+クリックでブラウザに飛ぶ
+完成
