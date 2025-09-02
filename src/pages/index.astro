@@ -80,7 +80,6 @@ body{
   justify-content: center;
   gap: 100px;
   z-index: 100;
-
   img {
     width: 60px;
     height: 60px;
@@ -269,6 +268,10 @@ body{
             } catch (err) {
               console.error("データ取得に失敗:", err);
             }
+            const id = currentTarget.dataset.id;
+            todos = todos.filter(todo => todo.id !== id);
+            currentTarget.remove();
+            saveTodos();
 
             modal.style.display = "none";
           }
