@@ -1,5 +1,6 @@
 <?php
-header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
 
 $songs = [
     ["title" => "歌うたいのバラッド", "url" => "/audio/song1.mp3"],
