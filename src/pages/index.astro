@@ -187,9 +187,12 @@ body {
   </main>
   <Footer />
 
-<script>
+  <script>
 document.addEventListener("DOMContentLoaded", () => {
   const list = document.getElementById("todo-list");
+  const input = document.getElementById("todo-input");
+  const addBtn = document.getElementById("add-todo");
+
   const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modal-title");
   const modalMemo = document.getElementById("modal-memo");
@@ -201,6 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const rewardAudio = document.getElementById("reward-audio");
   const closeReward = document.getElementById("close-reward");
 
+  const deleteButton = document.getElementById("delete-button"); // ← 左下削除ボタン
+
   let todos = JSON.parse(localStorage.getItem("todos") || "[]");
   let currentTarget = null;
 
@@ -209,10 +214,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const todoEl = document.createElement("div");
     todoEl.className = "todo-item";
     todoEl.textContent = todo.text;
-    todoEl.dataset.id = todo.id;
+    todoEl.dataset.id = String(todo.id);
 
     todoEl.addEventListener("click", () => {
+      document.querySelectorAll(".todo-item").forEach(el => el.classList.remove("selected"));
+      todoEl.classList.add("selected");
       currentTarget = todoEl;
+
       modalTitle.textContent = todo.text;
       modalMemo.value = "";
       modal.style.display = "flex";
@@ -221,11 +229,26 @@ document.addEventListener("DOMContentLoaded", () => {
     list.appendChild(todoEl);
   }
 
-  todos.forEach(createTodoItem);
-
   function saveTodos() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
+
+  // ✅ 初期化してから描画
+  list.innerHTML = "";
+  todos.forEach(createTodoItem);
+
+  // ✅ 追加処理
+  addBtn.addEventListener("click", () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    const newTodo = { id: Date.now().toString(), text };
+    todos.push(newTodo);
+    saveTodos();
+    createTodoItem(newTodo);
+
+    input.value = "";
+  });
 
   // ❌ 戻る
   cancelModal.addEventListener("click", () => {
@@ -241,14 +264,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) throw new Error("API error");
       const data = await response.json();
 
-      // 🎵 獲得曲をモーダルに表示
       rewardText.textContent = `「${data.title}」を獲得しました！`;
 
       if (data.url) {
         rewardAudio.src = data.url;
         rewardAudio.style.display = "block";
         try {
-          await rewardAudio.play(); // 自動再生（失敗したら手動再生できる）
+          await rewardAudio.play();
         } catch (err) {
           console.warn("自動再生失敗:", err);
         }
@@ -256,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
         rewardAudio.style.display = "none";
       }
 
-      // ✅ 曲獲得モーダルを表示
       rewardModal.style.display = "flex";
 
     } catch (err) {
@@ -264,12 +285,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 🎯 Todo削除処理
-    const id = currentTarget.dataset.id;
-    todos = todos.filter(todo => todo.id !== id);
-    currentTarget.remove();
+    const id = String(currentTarget.dataset.id);
+    todos = todos.filter(todo => String(todo.id) !== id);
     saveTodos();
+    currentTarget.remove();
 
-    // 🎯 元のモーダルを閉じる
     modal.style.display = "none";
   });
 
@@ -277,7 +297,17 @@ document.addEventListener("DOMContentLoaded", () => {
   closeReward.addEventListener("click", () => {
     rewardModal.style.display = "none";
   });
+
+  // ✅ 左下の削除ボタンで即削除
+  deleteButton.addEventListener("click", () => {
+    if (!currentTarget) return;
+
+    const id = String(currentTarget.dataset.id);
+    todos = todos.filter(todo => String(todo.id) !== id);
+    saveTodos();
+    currentTarget.remove();
+
+    currentTarget = null;
+  });
 });
 </script>
-
-</Layout>
