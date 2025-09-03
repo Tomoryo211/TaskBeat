@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let todos = JSON.parse(localStorage.getItem("todos") || "[]");
   let currentTarget = null;
 
-  // ✅ Todo生成
+  // Todo生成
   function createTodoItem(todo) {
     const todoEl = document.createElement("div");
     todoEl.className = "todo-item";
@@ -233,11 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
-  // ✅ 初期化してから描画
+  //  初期化してから描画
   list.innerHTML = "";
   todos.forEach(createTodoItem);
 
-  // ✅ 追加処理
+  // 追加処理
   addBtn.addEventListener("click", () => {
     const text = input.value.trim();
     if (!text) return;
@@ -250,12 +250,12 @@ document.addEventListener("DOMContentLoaded", () => {
     input.value = "";
   });
 
-  // ❌ 戻る
+  // 戻る
   cancelModal.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  // ✅ OKを押したら → 曲獲得モーダルを表示
+  // OKを押したら → 曲獲得モーダルを表示
   okModal.addEventListener("click", async () => {
     if (!currentTarget) return;
 
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("データ取得に失敗:", err);
     }
 
-    // 🎯 Todo削除処理
+    //  Todo削除処理
     const id = String(currentTarget.dataset.id);
     todos = todos.filter(todo => String(todo.id) !== id);
     saveTodos();
@@ -293,12 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "none";
   });
 
-  // ✅ 獲得モーダルを閉じる
+  //  獲得モーダルを閉じる
   closeReward.addEventListener("click", () => {
     rewardModal.style.display = "none";
   });
 
-  // ✅ 左下の削除ボタンで即削除
+  //  左下の削除ボタンで即削除
   deleteButton.addEventListener("click", () => {
     if (!currentTarget) return;
 
