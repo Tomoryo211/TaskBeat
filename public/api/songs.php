@@ -12,7 +12,7 @@ $songs = [
     ["title" => "純恋歌", "url" => "/audio/song7.mp3"]
 ];
 
-// ✅ ランダムに1曲選ぶ
+// ランダムに1曲選ぶ
 $randomSong = $songs[array_rand($songs)];
 
 echo json_encode($randomSong);

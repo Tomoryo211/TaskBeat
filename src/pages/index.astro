@@ -204,12 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const rewardAudio = document.getElementById("reward-audio");
   const closeReward = document.getElementById("close-reward");
 
-  const deleteButton = document.getElementById("delete-button");
+  const deleteButton = document.getElementById("delete-button"); // 左下削除ボタン
 
   let todos = JSON.parse(localStorage.getItem("todos") || "[]");
   let currentTarget = null;
 
-  // ✅ 通知の権限をリクエスト
+  // ✅ 通知の権限リクエスト
   if ("Notification" in window && Notification.permission === "default") {
     Notification.requestPermission();
   }
@@ -238,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
+  // 初期化
   list.innerHTML = "";
   todos.forEach(createTodoItem);
 
@@ -260,58 +261,66 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ✅ OKを押したら → 曲獲得モーダル + 通知
-// ✅ OKを押したら → 曲獲得モーダル + 通知
-okModal.addEventListener("click", async () => {
-  if (!currentTarget) return;
+  okModal.addEventListener("click", async () => {
+    if (!currentTarget) return;
 
-  try {
-    const response = await fetch("http://localhost:8000/api/songs.php"); // ← PHPサーバー
-    if (!response.ok) throw new Error("API error");
-    const data = await response.json();
+    try {
+      const response = await fetch("http://localhost:8000/api/songs.php"); // PHPサーバー
+      if (!response.ok) throw new Error("API error");
+      const data = await response.json();
 
-    // 🎵 通知
-    if ("Notification" in window) {
-      if (Notification.permission === "granted") {
-        new Notification(`🎵 ${data.title} を獲得しました！`);
-      } else if (Notification.permission !== "denied") {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
+      // 🎵 通知
+      if ("Notification" in window) {
+        if (Notification.permission === "granted") {
           new Notification(`🎵 ${data.title} を獲得しました！`);
         }
       }
-    }
 
-    // 🎵 獲得モーダル表示
-    rewardText.textContent = `「${data.title}」を獲得しました！`;
+      // 🎵 獲得モーダル表示
+      rewardText.textContent = `「${data.title}」を獲得しました！`;
 
-    if (data.url) {
-      rewardAudio.src = data.url;
-      rewardAudio.style.display = "block";
-      try {
-        await rewardAudio.play();
-      } catch (err) {
-        console.warn("自動再生失敗:", err);
+      if (data.url) {
+        rewardAudio.src = data.url;
+        rewardAudio.style.display = "block";
+        try {
+          await rewardAudio.play();
+        } catch (err) {
+          console.warn("自動再生失敗:", err);
+        }
+      } else {
+        rewardAudio.style.display = "none";
       }
-    } else {
-      rewardAudio.style.display = "none";
+
+      rewardModal.style.display = "flex";
+
+    } catch (err) {
+      console.error("データ取得に失敗:", err);
     }
 
-    rewardModal.style.display = "flex";
+    // 🎯 Todo削除
+    const id = String(currentTarget.dataset.id);
+    todos = todos.filter(todo => String(todo.id) !== id);
+    saveTodos();
+    currentTarget.remove();
 
-  } catch (err) {
-    console.error("データ取得に失敗:", err);
-  }
+    modal.style.display = "none";
+  });
 
-  // 🎯 Todo削除
-  const id = String(currentTarget.dataset.id);
-  todos = todos.filter(todo => String(todo.id) !== id);
-  saveTodos();
-  currentTarget.remove();
+  // 🎉 獲得モーダルを閉じる
+  closeReward.addEventListener("click", () => {
+    rewardModal.style.display = "none";
+  });
 
-  modal.style.display = "none";
-});
-closeReward.addEventListener("click", () => {
-  rewardModal.style.display = "none";
-});
+  // ✅ 左下削除ボタン（即削除）
+  deleteButton.addEventListener("click", () => {
+    if (!currentTarget) return;
+
+    const id = String(currentTarget.dataset.id);
+    todos = todos.filter(todo => String(todo.id) !== id);
+    saveTodos();
+    currentTarget.remove();
+
+    currentTarget = null;
+  });
 });
 </script>
